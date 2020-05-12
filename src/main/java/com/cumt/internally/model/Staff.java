@@ -13,7 +13,7 @@ public class Staff implements Common {
     private String staffUnit; // 单位
     private String staffDuty; // 职务
     private String staffProfessional; // 职称
-    private String staffWeight; // 权重
+    private double staffWeight; // 权重
     private String staffPwd; //密码
     private Date createTime; //创建时间
     private Date updateTime; //更新时间
@@ -58,11 +58,11 @@ public class Staff implements Common {
         this.staffProfessional = staffProfessional;
     }
 
-    public String getStaffWeight() {
+    public double getStaffWeight() {
         return staffWeight;
     }
 
-    public void setStaffWeight(String staffWeight) {
+    public void setStaffWeight(double staffWeight) {
         this.staffWeight = staffWeight;
     }
 

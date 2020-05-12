@@ -20,8 +20,8 @@ public class RiskControl implements Common {
     private String responsiblePosition; // 责任岗位
     private String correspondingSystem; // 对应制度
     private String evidence; // 实施证据
-    private Date createTime; //创建时间
-    private Date updateTime; //更新时间
+    private Date createTime; // 创建时间
+    private Date updateTime; // 更新时间
 
     public Integer getId() {
         return id;

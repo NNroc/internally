@@ -9,14 +9,23 @@ import java.util.Map;
  */
 public class Project implements Common {
     private Integer id;
-    private Integer riskSort; //编号
-    private String riskUnit; //步骤名称
-    private String riskClassification; //主管部门/岗位
-    private String riskName; //控制编号
-    private String riskDescribe; //步骤描述
-    private double riskPossibility; //输出文档
+    private String type; //表名
+    private String num; //编号
+    private String name; //步骤名称
+    private String department; //主管部门/岗位
+    private String controlId; //控制编号
+    private String describe; //步骤描述
+    private String document; //输出文档
     private Date createTime; //创建时间
     private Date updateTime; //更新时间
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
@@ -26,52 +35,52 @@ public class Project implements Common {
         this.id = id;
     }
 
-    public Integer getRiskSort() {
-        return riskSort;
+    public String getNum() {
+        return num;
     }
 
-    public void setRiskSort(Integer riskSort) {
-        this.riskSort = riskSort;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public String getRiskUnit() {
-        return riskUnit;
+    public String getName() {
+        return name;
     }
 
-    public void setRiskUnit(String riskUnit) {
-        this.riskUnit = riskUnit;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRiskClassification() {
-        return riskClassification;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setRiskClassification(String riskClassification) {
-        this.riskClassification = riskClassification;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public String getRiskName() {
-        return riskName;
+    public String getControlId() {
+        return controlId;
     }
 
-    public void setRiskName(String riskName) {
-        this.riskName = riskName;
+    public void setControlId(String controlId) {
+        this.controlId = controlId;
     }
 
-    public String getRiskDescribe() {
-        return riskDescribe;
+    public String getDescribe() {
+        return describe;
     }
 
-    public void setRiskDescribe(String riskDescribe) {
-        this.riskDescribe = riskDescribe;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
-    public double getRiskPossibility() {
-        return riskPossibility;
+    public String getDocument() {
+        return document;
     }
 
-    public void setRiskPossibility(double riskPossibility) {
-        this.riskPossibility = riskPossibility;
+    public void setDocument(String document) {
+        this.document = document;
     }
 
     public Date getCreateTime() {
