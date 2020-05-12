@@ -1,6 +1,7 @@
 package com.cumt.internally.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -74,6 +75,13 @@ public class RiskPost implements Common {
 
     @Override
     public Map toDict() {
-        return null;
+        Map<Object, Object> map = new HashMap<>();
+        map.put("staffId", staffId);
+        map.put("staffName", staffName);
+        map.put("possibleGrade", possibleGrade);
+        map.put("effectGrade", effectGrade);
+        map.put("createTime", createTime);
+        map.put("updateTime", updateTime);
+        return map;
     }
 }

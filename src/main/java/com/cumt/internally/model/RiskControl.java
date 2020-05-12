@@ -1,6 +1,7 @@
 package com.cumt.internally.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -137,6 +138,21 @@ public class RiskControl implements Common {
 
     @Override
     public Map toDict() {
-        return null;
+        Map<Object, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("process", process);
+        map.put("point", point);
+        map.put("riskId", riskId);
+        map.put("describe", describe);
+        map.put("controlObjectives", controlObjectives);
+        map.put("controlId", controlId);
+        map.put("controlName", controlName);
+        map.put("controlMeasures", controlMeasures);
+        map.put("responsiblePosition", responsiblePosition);
+        map.put("correspondingSystem", correspondingSystem);
+        map.put("evidence", evidence);
+        map.put("createTime", createTime);
+        map.put("updateTime", updateTime);
+        return map;
     }
 }

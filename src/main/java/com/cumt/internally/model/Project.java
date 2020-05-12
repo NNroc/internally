@@ -1,6 +1,7 @@
 package com.cumt.internally.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -101,6 +102,16 @@ public class Project implements Common {
 
     @Override
     public Map toDict() {
-        return null;
+        Map<Object, Object> map = new HashMap<>();
+        map.put("type", type);
+        map.put("num", num);
+        map.put("name", name);
+        map.put("department", department);
+        map.put("controlId", controlId);
+        map.put("describe", describe);
+        map.put("document", document);
+        map.put("createTime", createTime);
+        map.put("updateTime", updateTime);
+        return map;
     }
 }
