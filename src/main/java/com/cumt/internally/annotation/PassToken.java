@@ -1,4 +1,4 @@
-package com.cumt.internally.Annotation;
+package com.cumt.internally.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
