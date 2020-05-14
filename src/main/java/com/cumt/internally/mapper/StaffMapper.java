@@ -1,4 +1,5 @@
 package com.cumt.internally.mapper;
+
 import com.cumt.internally.model.Staff;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -13,47 +14,54 @@ import java.util.List;
  */
 public interface StaffMapper {
     @Delete({
-        "delete from staff",
-        "where staffId = #{staffId,jdbcType=VARCHAR}"
+            "delete from staff",
+            "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(String staffId);
+    int deleteByStaffId(String staffId);
 
     @Insert({
-        "insert into staff (staffId, staffName, ",
-        "staffUnit, staffDuty, ",
-        "staffProfessional, staffWeight, ",
-        "staffPwd, createTime, ",
-        "updateTime)",
-        "values (#{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, ",
-        "#{staffUnit,jdbcType=VARCHAR}, #{staffDuty,jdbcType=VARCHAR}, ",
-        "#{staffProfessional,jdbcType=VARCHAR}, #{staffWeight,jdbcType=DOUBLE}, ",
-        "#{staffPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+            "insert into staff (staffId, staffName, ",
+            "staffUnit, staffDuty, ",
+            "staffProfessional, staffWeight, ",
+            "staffPwd, createTime, ",
+            "updateTime)",
+            "values (#{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, ",
+            "#{staffUnit,jdbcType=VARCHAR}, #{staffDuty,jdbcType=VARCHAR}, ",
+            "#{staffProfessional,jdbcType=VARCHAR}, #{staffWeight,jdbcType=DOUBLE}, ",
+            "#{staffPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+            "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(Staff record);
 
     @Select({
-        "select * from staff",
-        "where staffId = #{staffId,jdbcType=VARCHAR}"
+            "select * from staff",
+            "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
-    Staff selectByPrimaryKey(String staffId);
+    Staff selectByStaffId(String staffId);
 
     @Select({
-        "select * from staff"
+            "select * from staff",
+            "where staffName = #{staffName,jdbcType=VARCHAR}"
     })
-    List<Staff> selectAll();
+    List<Staff> selectByStaffName(String staffName);
+
+    @Select({
+            "select * from staff where order by createTime asc",
+            "limit #{pageStart,jdbcType=INTEGER}, #{id,pageSize=INTEGER}"
+    })
+    List<Staff> selectAll(int pageStart, int pageSize);
 
     @Update({
-        "update staff",
-        "set staffName = #{staffName,jdbcType=VARCHAR},",
-          "staffUnit = #{staffUnit,jdbcType=VARCHAR},",
-          "staffDuty = #{staffDuty,jdbcType=VARCHAR},",
-          "staffProfessional = #{staffProfessional,jdbcType=VARCHAR},",
-          "staffWeight = #{staffWeight,jdbcType=DOUBLE},",
-          "staffPwd = #{staffPwd,jdbcType=VARCHAR},",
-          "createTime = #{createTime,jdbcType=TIMESTAMP},",
-          "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
-        "where staffId = #{staffId,jdbcType=VARCHAR}"
+            "update staff",
+            "set staffName = #{staffName,jdbcType=VARCHAR},",
+            "staffUnit = #{staffUnit,jdbcType=VARCHAR},",
+            "staffDuty = #{staffDuty,jdbcType=VARCHAR},",
+            "staffProfessional = #{staffProfessional,jdbcType=VARCHAR},",
+            "staffWeight = #{staffWeight,jdbcType=DOUBLE},",
+            "staffPwd = #{staffPwd,jdbcType=VARCHAR},",
+            "createTime = #{createTime,jdbcType=TIMESTAMP},",
+            "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
+            "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
-    int updateByPrimaryKey(Staff record);
+    int updateByStaffId(Staff staff);
 }

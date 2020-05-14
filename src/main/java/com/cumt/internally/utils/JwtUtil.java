@@ -24,12 +24,14 @@ public class JwtUtil {
     public static String getToken(Staff staff, String encryKey, long minutes){
         long currentTime = System.currentTimeMillis();
         Map<String, Object> map = new HashMap<>();
+        map.put("staffId",staff.getStaffId());
+        map.put("staffWeight",staff.getStaffWeight());
 //        map.put("userId", user.getUserId());
         return Jwts.builder()
                 .setId(UUID.randomUUID().toString()) //当前用户
                 .setIssuedAt(new Date()) //签发日期
-                .setSubject("system") //说明
-                .setIssuer("npy") //签发者信息
+                .setSubject("staff") //说明
+                .setIssuer("NNroc") //签发者信息
                 .signWith(SignatureAlgorithm.HS256, encryKey) //加密方式
                 .addClaims(map)
                 .setExpiration(new Date(currentTime + minutes * 1000 * 60)) //过期时间
