@@ -2,6 +2,8 @@ package com.cumt.internally.service;
 
 import com.cumt.internally.mapper.StaffMapper;
 import com.cumt.internally.model.Staff;
+import com.cumt.internally.utils.JwtUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class StaffService {
+    private static final String encry = "salt";
     @Autowired
     private StaffMapper staffMapper;
 
@@ -46,6 +49,7 @@ public class StaffService {
     public Staff selectByStaffId(String message) {
         return staffMapper.selectByStaffId(message);
     }
+
     /**
      * 根据员工id或姓名查找员工
      *
@@ -74,10 +78,47 @@ public class StaffService {
 
     /**
      * 根据员工id更新员工信息
+     *
      * @param staff
      * @return
      */
-    public int updateByStaffId(Staff staff){
+    public int updateByStaffId(Staff staff) {
         return staffMapper.updateByStaffId(staff);
+    }
+
+    /**
+     * 从token找出staffId并核对是否存在
+     *
+     * @param token
+     * @return
+     */
+    public Staff getStaffFromToken(String token) {
+        if (!JwtUtil.isExpiration(token, encry)) {
+            String staffId = (String) JwtUtil.getClamis(token, encry).get("staffId");
+            if (!StringUtils.isBlank(staffId)) {
+                return staffMapper.selectByStaffId(staffId);
+            }
+        }
+        Staff staff = new Staff();
+        staff.setStaffId("");
+        return staff;
+    }
+
+    /**
+     * 从token中获取权重
+     *
+     * @param token
+     * @return
+     */
+    public Double getWeightFromToken(String token) {
+        Double weight = 0.0;
+        if (!JwtUtil.isExpiration(token, encry)) {
+            try {
+                weight = (Double) JwtUtil.getClamis(token, encry).get("staffWeight");
+            } catch (Exception e) {
+                return 0.0;
+            }
+        }
+        return weight;
     }
 }

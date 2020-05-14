@@ -17,15 +17,16 @@ import java.util.UUID;
 public class JwtUtil {
     /**
      * 获取token
+     *
      * @param encryKey
      * @param minutes
      * @return
      */
-    public static String getToken(Staff staff, String encryKey, long minutes){
+    public static String getToken(Staff staff, String encryKey, long minutes) {
         long currentTime = System.currentTimeMillis();
         Map<String, Object> map = new HashMap<>();
-        map.put("staffId",staff.getStaffId());
-        map.put("staffWeight",staff.getStaffWeight());
+        map.put("staffId", staff.getStaffId());
+        map.put("staffWeight", staff.getStaffWeight());
 //        map.put("userId", user.getUserId());
         return Jwts.builder()
                 .setId(UUID.randomUUID().toString()) //当前用户
@@ -40,34 +41,36 @@ public class JwtUtil {
 
     /**
      * 验证是否到时间
+     *
      * @param token
      * @param encryKey
      * @return
      */
-    public static boolean isExpiration(String token, String encryKey){
+    public static boolean isExpiration(String token, String encryKey) {
         try {
             long currentTime = System.currentTimeMillis();
-            if (Jwts.parser().setSigningKey(encryKey).parseClaimsJws(token).getBody().getExpiration().after(new Date(currentTime))){
+            if (Jwts.parser().setSigningKey(encryKey).parseClaimsJws(token).getBody().getExpiration().after(new Date(currentTime))) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
      * 获取claims
+     *
      * @param token
      * @param encryKey
      * @return
      */
-    public static Claims getClamis(String token, String encryKey){
+    public static Claims getClamis(String token, String encryKey) {
         try {
             Claims claims = Jwts.parser().setSigningKey(encryKey).parseClaimsJws(token).getBody();
             return claims;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

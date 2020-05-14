@@ -1,5 +1,6 @@
 package com.cumt.internally.controller;
 
+import com.cumt.internally.annotation.AdministratorToken;
 import com.cumt.internally.annotation.PassToken;
 import com.cumt.internally.annotation.UserToken;
 import com.cumt.internally.component.ResponseData;
@@ -67,7 +68,7 @@ public class StaffController {
      *
      * @return
      */
-    @UserToken
+    @AdministratorToken
     @RequestMapping("/renew")
     public Result renew() {
         return null;
@@ -78,7 +79,7 @@ public class StaffController {
      *
      * @return
      */
-    @UserToken
+    @AdministratorToken
     @RequestMapping("/add")
     public Result add() {
         return null;
@@ -89,7 +90,7 @@ public class StaffController {
      *
      * @return
      */
-    @UserToken
+    @AdministratorToken
     @RequestMapping("/del")
     public Result del() {
         return null;
@@ -100,7 +101,7 @@ public class StaffController {
      *
      * @return
      */
-    @UserToken
+    @AdministratorToken
     @RequestMapping("/select")
     public Result select() {
         return null;
@@ -111,7 +112,7 @@ public class StaffController {
      *
      * @return
      */
-    @UserToken
+    @AdministratorToken
     @RequestMapping("/select_all")
     public Result selectAll(@PathVariable int pageNum, @PathVariable int pageSize) {
         return null;
