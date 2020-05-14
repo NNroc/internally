@@ -57,6 +57,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (method.isAnnotationPresent(UserToken.class)) {
             UserToken userLoginToken = method.getAnnotation(UserToken.class);
             if (userLoginToken.required()) {
+                //  --------------------------------------------------------------------------------------------
                 // 执行认证
                 if (token == null) {
                     log.info("没有token进行操作");
@@ -78,6 +79,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     sendMsgUtil.sendJsonMessage(httpServletResponse, result);
                     return false;
                 }
+                //  --------------------------------------------------------------------------------------------
                 return true;
             }
         }
@@ -85,6 +87,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (method.isAnnotationPresent(UserToken.class)) {
             AdministratorToken administratorToken = method.getAnnotation(AdministratorToken.class);
             if (administratorToken.required()) {
+                // --------------------------------------------------------------------------------------------
                 // 执行认证
                 if (token == null) {
                     log.info("没有token进行操作");
@@ -95,6 +98,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     sendMsgUtil.sendJsonMessage(httpServletResponse, result);
                     return false;
                 }
+                // 获取 token 中的 staffId 并核对
+                Staff staff = staffService.getStaffFromToken(token);
+                if (StringUtils.isBlank(staff.getStaffId())) {
+                    log.info("未找到该员工");
+                    Result<String> result = new Result<>();
+                    result.setCode(404);
+                    result.setMsg("未找到该员工");
+                    result.setData("get staff null");
+                    sendMsgUtil.sendJsonMessage(httpServletResponse, result);
+                    return false;
+                }
+                //  --------------------------------------------------------------------------------------------
                 // 获取 token 中的 权重
                 Double weight = staffService.getWeightFromToken(token);
                 if (weight != 4.0) {
