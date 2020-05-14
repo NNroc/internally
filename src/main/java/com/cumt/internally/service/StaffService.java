@@ -3,11 +3,13 @@ package com.cumt.internally.service;
 import com.cumt.internally.mapper.StaffMapper;
 import com.cumt.internally.model.Staff;
 import com.cumt.internally.utils.JwtUtil;
+import com.cumt.internally.utils.MD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -120,5 +122,12 @@ public class StaffService {
             }
         }
         return weight;
+    }
+
+    public int renewPwdByStaffId(String staffId) {
+        Staff staff=staffMapper.selectByStaffId(staffId);
+        staff.setUpdateTime(new Date());
+        staff.setStaffPwd(MD5Util.md5(staff.getStaffId()));
+        return staffMapper.renewPwdByStaff(staff);
     }
 }

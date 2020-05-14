@@ -64,4 +64,12 @@ public interface StaffMapper {
             "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
     int updateByStaffId(Staff staff);
+
+    @Update({
+            "update staff",
+            "set staffPwd = #{staffPwd,jdbcType=VARCHAR},",
+            "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
+            "where staffId = #{staffId,jdbcType=VARCHAR}"
+    })
+    int renewPwdByStaff(Staff staff);
 }
