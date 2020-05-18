@@ -58,8 +58,6 @@ public interface StaffMapper {
             "staffDuty = #{staffDuty,jdbcType=VARCHAR},",
             "staffProfessional = #{staffProfessional,jdbcType=VARCHAR},",
             "staffWeight = #{staffWeight,jdbcType=DOUBLE},",
-            "staffPwd = #{staffPwd,jdbcType=VARCHAR},",
-            "createTime = #{createTime,jdbcType=TIMESTAMP},",
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where staffId = #{staffId,jdbcType=VARCHAR}"
     })

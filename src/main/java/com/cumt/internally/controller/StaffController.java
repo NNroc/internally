@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -123,6 +122,22 @@ public class StaffController {
             return responseData.write("重置成功", 200, new HashMap<>());
         } else {
             return responseData.write("重置失败", 400, new HashMap<>());
+        }
+    }
+
+    /**
+     * 修改员工信息
+     *
+     * @param staff
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/change")
+    public Result change(@Valid Staff staff) {
+        if (staffService.updateByStaff(staff) == 1) {
+            return responseData.write("修改成功", 200, staff.toDict());
+        } else {
+            return responseData.write("修改失败", 400, new HashMap<>());
         }
     }
 

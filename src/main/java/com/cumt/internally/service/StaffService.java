@@ -84,7 +84,8 @@ public class StaffService {
      * @param staff
      * @return
      */
-    public int updateByStaffId(Staff staff) {
+    public int updateByStaff(Staff staff) {
+        staff.setUpdateTime(new Date());
         return staffMapper.updateByStaffId(staff);
     }
 
