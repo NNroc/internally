@@ -119,9 +119,9 @@ public class StaffController {
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
         if (staffService.updatePwd(staff, staffPwd) == 1) {
-            return responseData.write("重置成功", 200, new HashMap<>());
+            return responseData.write("修改成功", 200, new HashMap<>());
         } else {
-            return responseData.write("重置失败", 400, new HashMap<>());
+            return responseData.write("修改失败", 400, new HashMap<>());
         }
     }
 
