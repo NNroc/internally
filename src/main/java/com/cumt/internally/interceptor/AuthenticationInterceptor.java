@@ -28,7 +28,6 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
-    private static final String encry = "salt";
     @Autowired
     StaffService staffService;
     @Autowired
@@ -37,7 +36,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         log.info("______开始处理______");
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出 token
+        // 从 http 请求头中取出 token
+        String token = httpServletRequest.getHeader("token");
         log.info(token);
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {
@@ -70,7 +70,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 }
                 // 获取 token 中的 staffId 并核对
                 Staff staff = staffService.getStaffFromToken(token);
-                if (StringUtils.isBlank(staff.getStaffId())) {
+                if (staff.getStaffId() == null) {
                     log.info("未找到该员工");
                     Result<String> result = new Result<>();
                     result.setCode(404);
@@ -100,7 +100,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 }
                 // 获取 token 中的 staffId 并核对
                 Staff staff = staffService.getStaffFromToken(token);
-                if (staff.getStaffId()==null) {
+                if (staff.getStaffId() == null) {
                     log.info("未找到该员工");
                     Result<String> result = new Result<>();
                     result.setCode(404);

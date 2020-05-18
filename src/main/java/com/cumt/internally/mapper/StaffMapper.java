@@ -46,7 +46,7 @@ public interface StaffMapper {
     List<Staff> selectByStaffName(String staffName);
 
     @Select({
-            "select * from staff where order by createTime asc",
+            "select * from staff order by createTime asc",
             "limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}"
     })
     List<Staff> selectAll(int pageStart, int pageSize);
@@ -71,5 +71,5 @@ public interface StaffMapper {
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
-    int renewPwdByStaff(Staff staff);
+    int updatePwdByStaff(Staff staff);
 }

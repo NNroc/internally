@@ -109,10 +109,29 @@ public class StaffService {
         return new Staff();
     }
 
+    /**
+     * 修改密码
+     *
+     * @param staff
+     * @param staffPwd
+     * @return
+     */
+    public int updatePwd(Staff staff, String staffPwd) {
+        staff.setUpdateTime(new Date());
+        staff.setStaffPwd(MD5Util.md5(staffPwd));
+        return staffMapper.updatePwdByStaff(staff);
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param staffId
+     * @return
+     */
     public int renewPwdByStaffId(String staffId) {
         Staff staff = staffMapper.selectByStaffId(staffId);
         staff.setUpdateTime(new Date());
         staff.setStaffPwd(MD5Util.md5(staff.getStaffId()));
-        return staffMapper.renewPwdByStaff(staff);
+        return staffMapper.updatePwdByStaff(staff);
     }
 }

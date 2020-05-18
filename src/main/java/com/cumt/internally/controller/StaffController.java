@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,22 +67,6 @@ public class StaffController {
     }
 
     /**
-     * 重置密码，update
-     *
-     * @return
-     */
-    @AdministratorToken
-    @RequestMapping("/renew")
-    public Result renew(@RequestParam String staffId) {
-        if (staffService.renewPwdByStaffId(staffId) == 1) {
-            System.out.println(staffId);
-            return responseData.write("重置成功", 200, new HashMap<>());
-        } else {
-            return responseData.write("重置失败", 400, new HashMap<>());
-        }
-    }
-
-    /**
      * 添加人员，insert
      *
      * @return
@@ -93,10 +78,10 @@ public class StaffController {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
-        if(StringUtils.isBlank(staff.getStaffId())||StringUtils.isBlank(staff.getStaffName())){
+        if (StringUtils.isBlank(staff.getStaffId()) || StringUtils.isBlank(staff.getStaffName())) {
             return responseData.write("工号或用户名为空", 400, new HashMap<>());
         }
-        if(staffService.selectByStaffId(staff.getStaffId())!=null){
+        if (staffService.selectByStaffId(staff.getStaffId()) != null) {
             return responseData.write("用户名重复", 400, new HashMap<>());
         }
         staff.setStaffPwd(MD5Util.md5(staff.getStaffId()));
@@ -110,17 +95,34 @@ public class StaffController {
     }
 
     /**
-     * 删除人员，delete
+     * 重置密码，update
      *
      * @return
      */
     @AdministratorToken
-    @RequestMapping("/del")
-    public Result del(@PathVariable String staffId) {
-        if (staffService.deleteByStaffId(staffId) == 1) {
-            return responseData.write("删除成功", 200, new HashMap<>());
+    @RequestMapping("/renew")
+    public Result renew(@RequestParam String staffId) {
+        if (staffService.renewPwdByStaffId(staffId) == 1) {
+            return responseData.write("重置成功", 200, new HashMap<>());
         } else {
-            return responseData.write("删除失败", 400, new HashMap<>());
+            return responseData.write("重置失败", 400, new HashMap<>());
+        }
+    }
+
+    /**
+     * 修改密码，update
+     *
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/change_pwd")
+    public Result changePwd(@RequestParam String staffPwd, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("token");
+        Staff staff = staffService.getStaffFromToken(token);
+        if (staffService.updatePwd(staff, staffPwd) == 1) {
+            return responseData.write("重置成功", 200, new HashMap<>());
+        } else {
+            return responseData.write("重置失败", 400, new HashMap<>());
         }
     }
 
@@ -133,6 +135,7 @@ public class StaffController {
     @RequestMapping("/select")
     public Result select(@RequestParam String message) {
         List<Staff> staffs = staffService.selectByStaffIdOrStaffName(message);
+        staffs.forEach(staff -> staff.setStaffPwd(""));
         if (staffs.size() != 0) {
             return responseData.write("成功", 200, staffs);
         } else {
@@ -165,4 +168,20 @@ public class StaffController {
             return responseData.write("传参错误", 400, new HashMap<>());
         }
     }
+
+    /**
+     * 删除人员，delete
+     *
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/del")
+    public Result del(@RequestParam String staffId) {
+        if (staffService.deleteByStaffId(staffId) == 1) {
+            return responseData.write("删除成功", 200, new HashMap<>());
+        } else {
+            return responseData.write("删除失败", 400, new HashMap<>());
+        }
+    }
+
 }
