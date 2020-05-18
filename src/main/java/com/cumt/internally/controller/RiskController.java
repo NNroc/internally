@@ -61,4 +61,14 @@ public class RiskController {
         return null;
     }
 
+    /**
+     * 清空风险
+     *
+     * @return
+     */
+    @RequestMapping("/clear/risk")
+    public Result clearRisk() {
+        return null;
+    }
+
 }
