@@ -1,5 +1,7 @@
 package com.cumt.internally.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -13,21 +15,17 @@ import java.util.Map;
  */
 public class Staff implements Common {
     @NotNull(message = "工号不能为空")
-    @Min(value = 1, message = "工号太短")
-    @Max(value = 20, message = "工号太长")
+    @Length(min = 1, max = 20, message = "工号长度必须在1-20之间")
     private String staffId; // 工号
     @NotNull(message = "姓名不能为空")
-    @Min(value = 1, message = "姓名长度须大于等于1")
-    @Max(value = 20, message = "姓名长度须小于等于20")
+    @Length(min = 1, max = 20, message = "用户名长度必须在1-20之间")
     private String staffName; // 姓名
     private String staffUnit; // 单位
     private String staffDuty; // 职务
     private String staffProfessional; // 职称
     private double staffWeight; // 权重
     private String staffPwd; // 密码
-    @NotNull(message = "创建时间不能为空")
     private Date createTime; // 创建时间
-    @NotNull(message = "更新时间不能为空")
     private Date updateTime; // 更新时间
 
     public String getStaffId() {

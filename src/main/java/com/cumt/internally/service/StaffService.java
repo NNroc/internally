@@ -95,37 +95,22 @@ public class StaffService {
      * @return
      */
     public Staff getStaffFromToken(String token) {
-        if (!JwtUtil.isExpiration(token, encry)) {
-            String staffId = (String) JwtUtil.getClamis(token, encry).get("staffId");
+        if (JwtUtil.getClaims(token, encry) == null) {
+            return new Staff();
+        }
+        try {
+            String staffId = (String) JwtUtil.getClaims(token, encry).get("staffId");
             if (!StringUtils.isBlank(staffId)) {
                 return staffMapper.selectByStaffId(staffId);
             }
+        } catch (NullPointerException e) {
+            return new Staff();
         }
-        Staff staff = new Staff();
-        staff.setStaffId("");
-        return staff;
-    }
-
-    /**
-     * 从token中获取权重
-     *
-     * @param token
-     * @return
-     */
-    public Double getWeightFromToken(String token) {
-        Double weight = 0.0;
-        if (!JwtUtil.isExpiration(token, encry)) {
-            try {
-                weight = (Double) JwtUtil.getClamis(token, encry).get("staffWeight");
-            } catch (Exception e) {
-                return 0.0;
-            }
-        }
-        return weight;
+        return new Staff();
     }
 
     public int renewPwdByStaffId(String staffId) {
-        Staff staff=staffMapper.selectByStaffId(staffId);
+        Staff staff = staffMapper.selectByStaffId(staffId);
         staff.setUpdateTime(new Date());
         staff.setStaffPwd(MD5Util.md5(staff.getStaffId()));
         return staffMapper.renewPwdByStaff(staff);

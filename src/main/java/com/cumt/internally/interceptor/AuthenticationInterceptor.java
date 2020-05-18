@@ -84,7 +84,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
         }
         // 检查有没有需要管理员权限的注解
-        if (method.isAnnotationPresent(UserToken.class)) {
+        if (method.isAnnotationPresent(AdministratorToken.class)) {
             AdministratorToken administratorToken = method.getAnnotation(AdministratorToken.class);
             if (administratorToken.required()) {
                 // --------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 }
                 // 获取 token 中的 staffId 并核对
                 Staff staff = staffService.getStaffFromToken(token);
-                if (StringUtils.isBlank(staff.getStaffId())) {
+                if (staff.getStaffId()==null) {
                     log.info("未找到该员工");
                     Result<String> result = new Result<>();
                     result.setCode(404);
@@ -111,13 +111,13 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 }
                 //  --------------------------------------------------------------------------------------------
                 // 获取 token 中的 权重
-                Double weight = staffService.getWeightFromToken(token);
+                double weight = staff.getStaffWeight();
                 if (weight != 4.0) {
                     log.info("权限不足");
                     Result<String> result = new Result<>();
                     result.setCode(404);
                     result.setMsg("权限不足");
-                    result.setData("shop");
+                    result.setData("stop");
                     sendMsgUtil.sendJsonMessage(httpServletResponse, result);
                     return false;
                 }

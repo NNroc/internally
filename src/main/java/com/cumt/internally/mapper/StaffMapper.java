@@ -47,7 +47,7 @@ public interface StaffMapper {
 
     @Select({
             "select * from staff where order by createTime asc",
-            "limit #{pageStart,jdbcType=INTEGER}, #{id,pageSize=INTEGER}"
+            "limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}"
     })
     List<Staff> selectAll(int pageStart, int pageSize);
 

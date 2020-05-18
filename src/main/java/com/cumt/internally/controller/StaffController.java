@@ -8,6 +8,7 @@ import com.cumt.internally.model.Staff;
 import com.cumt.internally.service.StaffService;
 import com.cumt.internally.utils.JwtUtil;
 import com.cumt.internally.utils.MD5Util;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -73,6 +74,7 @@ public class StaffController {
     @RequestMapping("/renew")
     public Result renew(@RequestParam String staffId) {
         if (staffService.renewPwdByStaffId(staffId) == 1) {
+            System.out.println(staffId);
             return responseData.write("重置成功", 200, new HashMap<>());
         } else {
             return responseData.write("重置失败", 400, new HashMap<>());
@@ -91,7 +93,13 @@ public class StaffController {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
-        staff.setStaffPwd(MD5Util.md5(staff.getStaffPwd()));
+        if(StringUtils.isBlank(staff.getStaffId())||StringUtils.isBlank(staff.getStaffName())){
+            return responseData.write("工号或用户名为空", 400, new HashMap<>());
+        }
+        if(staffService.selectByStaffId(staff.getStaffId())!=null){
+            return responseData.write("用户名重复", 400, new HashMap<>());
+        }
+        staff.setStaffPwd(MD5Util.md5(staff.getStaffId()));
         staff.setCreateTime(new Date());
         staff.setUpdateTime(new Date());
         if (staffService.insert(staff) == 1) {
