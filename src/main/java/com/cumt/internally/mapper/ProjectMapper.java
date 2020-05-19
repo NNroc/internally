@@ -24,12 +24,12 @@ public interface ProjectMapper {
 
     @Insert({
             "insert into project (id, type, ",
-            "num, name, department, ",
+            "num, stepName, department, ",
             "controlId, describe, ",
             "document, createTime, ",
             "updateTime)",
             "values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, ",
-            "#{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, ",
+            "#{num,jdbcType=VARCHAR}, #{stepName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, ",
             "#{controlid,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, ",
             "#{document,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, ",
             "#{updatetime,jdbcType=TIMESTAMP})"
@@ -38,7 +38,7 @@ public interface ProjectMapper {
 
     @Select({
             "select",
-            "id, type, num, name, department, controlId, describe, document, createTime, ",
+            "id, type, num, stepName, department, controlId, describe, document, createTime, ",
             "updateTime",
             "from project",
             "where id = #{id,jdbcType=INTEGER}"
@@ -47,7 +47,7 @@ public interface ProjectMapper {
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
             @Result(column = "type", property = "type", jdbcType = JdbcType.VARCHAR),
             @Result(column = "num", property = "num", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "stepName", property = "stepName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "department", property = "department", jdbcType = JdbcType.VARCHAR),
             @Result(column = "controlId", property = "controlid", jdbcType = JdbcType.VARCHAR),
             @Result(column = "describe", property = "describe", jdbcType = JdbcType.VARCHAR),
@@ -59,21 +59,9 @@ public interface ProjectMapper {
 
     @Select({
             "select",
-            "id, type, num, name, department, controlId, describe, document, createTime, ",
+            "id, type, num, stepName, department, controlId, describe, document, createTime, ",
             "updateTime",
             "from project"
-    })
-    @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "type", property = "type", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "num", property = "num", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "department", property = "department", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "controlId", property = "controlid", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "describe", property = "describe", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "document", property = "document", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "createTime", property = "createtime", jdbcType = JdbcType.TIMESTAMP),
-            @Result(column = "updateTime", property = "updatetime", jdbcType = JdbcType.TIMESTAMP)
     })
     List<Project> selectAll();
 
@@ -81,7 +69,7 @@ public interface ProjectMapper {
             "update project",
             "set type = #{type,jdbcType=VARCHAR},",
             "num = #{num,jdbcType=VARCHAR},",
-            "name = #{name,jdbcType=VARCHAR},",
+            "stepName = #{stepName,jdbcType=VARCHAR},",
             "department = #{department,jdbcType=VARCHAR},",
             "controlId = #{controlid,jdbcType=VARCHAR},",
             "describe = #{describe,jdbcType=VARCHAR},",

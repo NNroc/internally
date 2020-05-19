@@ -12,10 +12,10 @@ public class Project implements Common {
     private Integer id;
     private String type; //表名
     private String num; //编号
-    private String name; //步骤名称
+    private String stepName; //步骤名称
     private String department; //主管部门/岗位
     private String controlId; //控制编号
-    private String describe; //步骤描述
+    private String stepDescribe; //步骤描述
     private String document; //输出文档
     private Date createTime; //创建时间
     private Date updateTime; //更新时间
@@ -44,12 +44,12 @@ public class Project implements Common {
         this.num = num;
     }
 
-    public String getName() {
-        return name;
+    public String getStepName() {
+        return stepName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStepName(String stepName) {
+        this.stepName = stepName;
     }
 
     public String getDepartment() {
@@ -68,12 +68,12 @@ public class Project implements Common {
         this.controlId = controlId;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getStepDescribe() {
+        return stepDescribe;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setStepDescribe(String stepDescribe) {
+        this.stepDescribe = stepDescribe;
     }
 
     public String getDocument() {
@@ -105,10 +105,10 @@ public class Project implements Common {
         Map<Object, Object> map = new HashMap<>();
         map.put("type", type);
         map.put("num", num);
-        map.put("name", name);
+        map.put("name", stepName);
         map.put("department", department);
         map.put("controlId", controlId);
-        map.put("describe", describe);
+        map.put("describe", stepDescribe);
         map.put("document", document);
         map.put("createTime", createTime);
         map.put("updateTime", updateTime);
