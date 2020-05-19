@@ -106,10 +106,10 @@ public class ExcelController {
                 project.setCreateTime(new Date());
                 project.setUpdateTime(new Date());
                 // 类别，测试时使用
-                cell = row.getCell(6);
-                project.setType(cell.toString());
+//                cell = row.getCell(6);
+//                project.setType(cell.toString());
                 // 类别，正常情况时使用
-//                project.setType(fileName);
+                project.setType(fileName);
                 cell = row.getCell(2);
                 project.setDepartment(cell.toString());
                 while ((rowIndex + 1) <= lastRowIndex &&

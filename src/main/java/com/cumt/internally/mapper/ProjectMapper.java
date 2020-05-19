@@ -34,9 +34,9 @@ public interface ProjectMapper {
     int insert(Project project);
 
     @Select({
-            "select * from project"
+            "select * from project where type = #{type,jdbcType=VARCHAR}"
     })
-    List<Project> selectAll();
+    List<Project> selectByType(String type);
 
     @Update({
             "update project",

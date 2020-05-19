@@ -1,8 +1,15 @@
 package com.cumt.internally.controller;
 
+import com.cumt.internally.component.ResponseData;
+import com.cumt.internally.model.Project;
 import com.cumt.internally.model.Result;
+import com.cumt.internally.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author NNroc
@@ -11,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
+    @Autowired
+    ResponseData responseData;
+    @Autowired
+    ProjectService projectService;
+
     /**
      * 上传图片
      *
@@ -37,7 +49,8 @@ public class ProjectController {
      * @return
      */
     @RequestMapping("/get_project")
-    public Result getProject() {
-        return null;
+    public Result getProject(@RequestParam String type) {
+        List<Project> projects = projectService.selectByType(type);
+        return responseData.write(type, 200, projects);
     }
 }
