@@ -3,11 +3,8 @@ package com.cumt.internally.mapper;
 import com.cumt.internally.model.Project;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
@@ -18,50 +15,26 @@ import java.util.List;
 public interface ProjectMapper {
     @Delete({
             "delete from project",
-            "where id = #{id,jdbcType=INTEGER}"
+            "where type = #{type,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Integer id);
+    int deleteByType(String type);
 
     @Insert({
-            "insert into project (id, type, ",
-            "num, stepName, department, ",
-            "controlId, describe, ",
-            "document, createTime, ",
+            "insert into project (type,",
+            "num, stepName, department,",
+            "controlId, stepDescribe,",
+            "document, createTime,",
             "updateTime)",
-            "values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, ",
-            "#{num,jdbcType=VARCHAR}, #{stepName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, ",
-            "#{controlid,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, ",
-            "#{document,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, ",
-            "#{updatetime,jdbcType=TIMESTAMP})"
+            "values (#{type,jdbcType=VARCHAR},",
+            "#{num,jdbcType=VARCHAR}, #{stepName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},",
+            "#{controlId,jdbcType=VARCHAR}, #{stepDescribe,jdbcType=VARCHAR},",
+            "#{document,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
+            "#{updateTime,jdbcType=TIMESTAMP})"
     })
-    int insert(Project record);
+    int insert(Project project);
 
     @Select({
-            "select",
-            "id, type, num, stepName, department, controlId, describe, document, createTime, ",
-            "updateTime",
-            "from project",
-            "where id = #{id,jdbcType=INTEGER}"
-    })
-    @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "type", property = "type", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "num", property = "num", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "stepName", property = "stepName", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "department", property = "department", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "controlId", property = "controlid", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "describe", property = "describe", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "document", property = "document", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "createTime", property = "createtime", jdbcType = JdbcType.TIMESTAMP),
-            @Result(column = "updateTime", property = "updatetime", jdbcType = JdbcType.TIMESTAMP)
-    })
-    Project selectByPrimaryKey(Integer id);
-
-    @Select({
-            "select",
-            "id, type, num, stepName, department, controlId, describe, document, createTime, ",
-            "updateTime",
-            "from project"
+            "select * from project"
     })
     List<Project> selectAll();
 
@@ -71,11 +44,11 @@ public interface ProjectMapper {
             "num = #{num,jdbcType=VARCHAR},",
             "stepName = #{stepName,jdbcType=VARCHAR},",
             "department = #{department,jdbcType=VARCHAR},",
-            "controlId = #{controlid,jdbcType=VARCHAR},",
-            "describe = #{describe,jdbcType=VARCHAR},",
+            "controlId = #{controlId,jdbcType=VARCHAR},",
+            "stepDescribe = #{stepDescribe,jdbcType=VARCHAR},",
             "document = #{document,jdbcType=VARCHAR},",
-            "createTime = #{createtime,jdbcType=TIMESTAMP},",
-            "updateTime = #{updatetime,jdbcType=TIMESTAMP}",
+            "createTime = #{createTime,jdbcType=TIMESTAMP},",
+            "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Project record);
