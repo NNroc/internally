@@ -1,6 +1,5 @@
 package com.cumt.internally.controller;
 
-import com.cumt.internally.annotation.AdministratorToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Project;
 import com.cumt.internally.model.Result;
@@ -14,7 +13,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,9 +55,15 @@ public class ExcelController {
         return null;
     }
 
-
-    @AdministratorToken
-    @PostMapping("/import/flow_sheet")
+    /**
+     * 流程图信息导入
+     * 停用，没有这个需求
+     *
+     * @param file
+     * @return
+     * @throws Exception
+     */
+//    @PostMapping("/import/flow_sheet")
     public Result readExcelFlowSheet(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
@@ -108,7 +112,7 @@ public class ExcelController {
                 // 类别，测试时使用
 //                cell = row.getCell(6);
 //                project.setType(cell.toString());
-                // 类别，正常情况时使用
+                // 类别，正常情况时使用，但是好像不用了
                 project.setType(fileName);
                 cell = row.getCell(2);
                 project.setDepartment(cell.toString());
