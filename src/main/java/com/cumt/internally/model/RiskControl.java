@@ -10,10 +10,11 @@ import java.util.Map;
  */
 public class RiskControl implements Common {
     private Integer id;
-    private String process; // 业务流程
-    private String point; // 流程节点
+    private String mainName; //流程总名称
+    private String processName; // 业务流程
+    private String processPoint; // 流程节点
     private String riskId; // 风险编号
-    private String describe; // 风险描述
+    private String riskDescribe; // 风险描述
     private String controlObjectives; // 控制目标
     private String controlId; // 控制编号
     private String controlName; // 控制步骤名称
@@ -24,6 +25,14 @@ public class RiskControl implements Common {
     private Date createTime; // 创建时间
     private Date updateTime; // 更新时间
 
+    public String getMainName() {
+        return mainName;
+    }
+
+    public void setMainName(String mainName) {
+        this.mainName = mainName;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -32,20 +41,20 @@ public class RiskControl implements Common {
         this.id = id;
     }
 
-    public String getProcess() {
-        return process;
+    public String getProcessName() {
+        return processName;
     }
 
-    public void setProcess(String process) {
-        this.process = process;
+    public void setProcessName(String processName) {
+        this.processName = processName;
     }
 
-    public String getPoint() {
-        return point;
+    public String getProcessPoint() {
+        return processPoint;
     }
 
-    public void setPoint(String point) {
-        this.point = point;
+    public void setProcessPoint(String processPoint) {
+        this.processPoint = processPoint;
     }
 
     public String getRiskId() {
@@ -56,12 +65,12 @@ public class RiskControl implements Common {
         this.riskId = riskId;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getRiskDescribe() {
+        return riskDescribe;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setRiskDescribe(String riskDescribe) {
+        this.riskDescribe = riskDescribe;
     }
 
     public String getControlObjectives() {
@@ -140,10 +149,10 @@ public class RiskControl implements Common {
     public Map toDict() {
         Map<Object, Object> map = new HashMap<>();
         map.put("id", id);
-        map.put("process", process);
-        map.put("point", point);
+        map.put("process", processName);
+        map.put("point", processPoint);
         map.put("riskId", riskId);
-        map.put("describe", describe);
+        map.put("describe", riskDescribe);
         map.put("controlObjectives", controlObjectives);
         map.put("controlId", controlId);
         map.put("controlName", controlName);

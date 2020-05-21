@@ -1,5 +1,8 @@
 package com.cumt.internally.service;
 
+import com.cumt.internally.mapper.RiskControlMapper;
+import com.cumt.internally.model.RiskControl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,4 +11,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RiskControlService {
+    @Autowired
+    RiskControlMapper riskControlMapper;
+
+    public void insert(RiskControl riskControl) {
+        riskControlMapper.insert(riskControl);
+    }
 }
