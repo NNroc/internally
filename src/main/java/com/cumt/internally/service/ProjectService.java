@@ -37,7 +37,7 @@ public class ProjectService {
     /**
      * 根据type查找表格
      */
-    public List<Project> selectByType(String type) {
-        return projectMapper.selectByType(type);
+    public Project selectByType(String type,int num) {
+        return projectMapper.selectByType(type,num);
     }
 }

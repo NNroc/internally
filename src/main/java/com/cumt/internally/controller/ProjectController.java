@@ -44,13 +44,13 @@ public class ProjectController {
     }
 
     /**
-     * 获取流程说明
+     * 获取流程说明，单个说明
      *
      * @return
      */
     @RequestMapping("/get_project")
-    public Result getProject(@RequestParam String type) {
-        List<Project> projects = projectService.selectByType(type);
-        return responseData.write(type, 200, projects);
+    public Result getProject(@RequestParam String type, @RequestParam int num) {
+        Project project = projectService.selectByType(type, num);
+        return responseData.write(type, 200, project.toDict());
     }
 }

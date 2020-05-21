@@ -11,7 +11,7 @@ import java.util.Map;
 public class Project implements Common {
     private Integer id;
     private String type; //表名
-    private String num; //编号
+    private Integer num; //编号
     private String stepName; //步骤名称
     private String department; //主管部门/岗位
     private String controlId; //控制编号
@@ -36,11 +36,11 @@ public class Project implements Common {
         this.id = id;
     }
 
-    public String getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(String num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 

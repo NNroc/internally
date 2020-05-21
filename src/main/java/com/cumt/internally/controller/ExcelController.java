@@ -94,7 +94,7 @@ public class ExcelController {
             if (!StringUtils.isBlank(row.getCell(0).toString())) {
                 Project project = new Project();
                 Cell cell = row.getCell(0);
-                project.setNum(cell.toString());
+                project.setNum(Integer.valueOf(cell.toString()));
                 cell = row.getCell(1);
                 project.setStepName(cell.toString());
                 cell = row.getCell(3);

@@ -26,7 +26,7 @@ public interface ProjectMapper {
             "document, createTime,",
             "updateTime)",
             "values (#{type,jdbcType=VARCHAR},",
-            "#{num,jdbcType=VARCHAR}, #{stepName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},",
+            "#{num,jdbcType=INTEGER}, #{stepName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},",
             "#{controlId,jdbcType=VARCHAR}, #{stepDescribe,jdbcType=VARCHAR},",
             "#{document,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
             "#{updateTime,jdbcType=TIMESTAMP})"
@@ -34,14 +34,14 @@ public interface ProjectMapper {
     int insert(Project project);
 
     @Select({
-            "select * from project where type = #{type,jdbcType=VARCHAR}"
+            "select * from project where type = #{type,jdbcType=VARCHAR} and num = #{num,jdbcType=INTEGER}"
     })
-    List<Project> selectByType(String type);
+    Project selectByType(String type, int num);
 
     @Update({
             "update project",
             "set type = #{type,jdbcType=VARCHAR},",
-            "num = #{num,jdbcType=VARCHAR},",
+            "num = #{num,jdbcType=INTEGER},",
             "stepName = #{stepName,jdbcType=VARCHAR},",
             "department = #{department,jdbcType=VARCHAR},",
             "controlId = #{controlId,jdbcType=VARCHAR},",
