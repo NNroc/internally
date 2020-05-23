@@ -4,6 +4,7 @@ import com.cumt.internally.annotation.AdministratorToken;
 import com.cumt.internally.annotation.UserToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
+import com.cumt.internally.model.RiskControl;
 import com.cumt.internally.model.RiskMark;
 import com.cumt.internally.model.Staff;
 import com.cumt.internally.service.RiskControlService;
@@ -55,15 +56,16 @@ public class RiskController {
      */
     @UserToken
     @RequestMapping("send_modify")
-    public Result sendModify(HttpServletRequest httpServletRequest) {
+    public Result sendModify(@Valid RiskControl riskControl, HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
         if (staff.getStaffWeight() == 1.0) {
             // 数据库写入
+            riskControlService.insertRiskPost(riskControl);
         } else if (staff.getStaffWeight() == 4.0) {
             // 数据库修改
+            riskControlService.update(riskControl);
         }
-        // TODO 根据权限选择，直接修改或暂存，需加暂存的数据库
         return null;
     }
 

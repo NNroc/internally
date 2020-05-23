@@ -30,6 +30,24 @@ public interface RiskControlMapper {
     })
     int insert(RiskControl riskControl);
 
+    @Insert({
+            "insert into risk_post (mainName, processName,",
+            "processPoint, riskId, riskDescribe,",
+            "controlObjectives, controlId,",
+            "controlName, controlMeasures,",
+            "responsiblePosition, correspondingSystem,",
+            "evidence, createTime,",
+            "updateTime)",
+            "values (#{mainName,jdbcType=VARCHAR}, #{processName,jdbcType=VARCHAR},",
+            "#{processPoint,jdbcType=VARCHAR}, #{riskId,jdbcType=INTEGER}, #{riskDescribe,jdbcType=VARCHAR},",
+            "#{controlObjectives,jdbcType=VARCHAR}, #{controlId,jdbcType=VARCHAR},",
+            "#{controlName,jdbcType=VARCHAR}, #{controlMeasures,jdbcType=VARCHAR},",
+            "#{responsiblePosition,jdbcType=VARCHAR}, #{correspondingSystem,jdbcType=VARCHAR},",
+            "#{evidence,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
+            "#{updateTime,jdbcType=TIMESTAMP})"
+    })
+    int insertRiskPost(RiskControl riskControl);
+
     @Select({
             "select * from risk_control",
             "where id = #{id,jdbcType=INTEGER}"
@@ -59,5 +77,6 @@ public interface RiskControlMapper {
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where id = #{id,jdbcType=INTEGER}"
     })
+    // TODO 修改方式
     int updateByPrimaryKey(RiskControl record);
 }

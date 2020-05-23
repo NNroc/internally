@@ -20,7 +20,15 @@ public class RiskControlService {
         riskControlMapper.insert(riskControl);
     }
 
+    public void insertRiskPost(RiskControl riskControl) {
+        riskControlMapper.insertRiskPost(riskControl);
+    }
+
     public List<RiskControl> selectAll(){
         return riskControlMapper.selectAll();
+    }
+
+    public int update(RiskControl riskControl){
+        return riskControlMapper.updateByPrimaryKey(riskControl);
     }
 }
