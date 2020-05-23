@@ -1,6 +1,6 @@
 package com.cumt.internally.service;
 
-import com.cumt.internally.mapper.RiskPostMapper;
+import com.cumt.internally.mapper.RiskMarkMapper;
 import com.cumt.internally.model.RiskMark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +12,9 @@ import java.util.List;
  * @date 2020/5/13 17:59
  */
 @Service
-public class RiskPostService {
+public class RiskMarkService {
     @Autowired
-    RiskPostMapper riskPostMapper;
+    RiskMarkMapper riskMarkMapper;
 
     /**
      * 员工评分
@@ -23,9 +23,8 @@ public class RiskPostService {
      * @return
      */
     public int insert(RiskMark riskMark) {
-        return riskPostMapper.insert(riskMark);
+        return riskMarkMapper.insert(riskMark);
     }
-
 
     /**
      * 根据查看计算评分
@@ -33,17 +32,16 @@ public class RiskPostService {
      * @param riskControlId
      * @return
      */
-    RiskMark selectByRiskControlId(Integer riskControlId) {
-        return null;
+    public RiskMark selectByRiskControlId(Integer riskControlId) {
+        return riskMarkMapper.selectByRiskControlId(riskControlId);
     }
-
 
     /**
      * 查看全部情况
      *
      * @return
      */
-    List<RiskMark> selectAll() {
-        return null;
+    public List<RiskMark> selectAll() {
+        return riskMarkMapper.selectAll();
     }
 }

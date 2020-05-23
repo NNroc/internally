@@ -12,7 +12,7 @@ import java.util.List;
  * @author NNroc
  * @date 2020/5/13 17:40
  */
-public interface RiskPostMapper {
+public interface RiskMarkMapper {
     @Delete({
             "delete from risk_mark",
             "where id = #{id,jdbcType=INTEGER}"

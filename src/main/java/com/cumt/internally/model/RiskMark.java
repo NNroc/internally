@@ -10,7 +10,7 @@ import java.util.Map;
  * @author NNroc
  * @date 2020/5/12 13:11
  */
-public class RiskMark implements Common {
+public class RiskMark implements Common, Comparable<RiskMark> {
     private Integer id;
     @NotBlank(message = "工号不能为空")
     private String staffId; // 工号
@@ -23,6 +23,62 @@ public class RiskMark implements Common {
     private Date createTime; //创建时间
     private Date updateTime; //更新时间
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
+    public int getRiskControlId() {
+        return riskControlId;
+    }
+
+    public void setRiskControlId(int riskControlId) {
+        this.riskControlId = riskControlId;
+    }
+
+    public double getPossibleGrade() {
+        return possibleGrade;
+    }
+
+    public void setPossibleGrade(double possibleGrade) {
+        this.possibleGrade = possibleGrade;
+    }
+
+    public double getEffectGrade() {
+        return effectGrade;
+    }
+
+    public void setEffectGrade(double effectGrade) {
+        this.effectGrade = effectGrade;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public Map toDict() {
         Map<Object, Object> map = new HashMap<>();
@@ -33,5 +89,14 @@ public class RiskMark implements Common {
         map.put("createTime", createTime);
         map.put("updateTime", updateTime);
         return map;
+    }
+
+    @Override
+    public int compareTo(RiskMark riskMark) {
+        if (this.updateTime.after(riskMark.updateTime)) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

@@ -8,7 +8,6 @@ import com.cumt.internally.model.Staff;
 import com.cumt.internally.service.StaffService;
 import com.cumt.internally.utils.JwtUtil;
 import com.cumt.internally.utils.MD5Util;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -76,9 +75,6 @@ public class StaffController {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
-        }
-        if (StringUtils.isBlank(staff.getStaffId()) || StringUtils.isBlank(staff.getStaffName())) {
-            return responseData.write("工号或用户名为空", 400, new HashMap<>());
         }
         if (staffService.selectByStaffId(staff.getStaffId()) != null) {
             return responseData.write("用户名重复", 400, new HashMap<>());

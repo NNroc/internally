@@ -1,16 +1,24 @@
 package com.cumt.internally.controller;
 
+import com.cumt.internally.annotation.AdministratorToken;
+import com.cumt.internally.annotation.UserToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.RiskMark;
-import com.cumt.internally.service.RiskPostService;
+import com.cumt.internally.model.Staff;
+import com.cumt.internally.service.RiskControlService;
+import com.cumt.internally.service.RiskMarkService;
+import com.cumt.internally.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,26 +31,22 @@ public class RiskController {
     @Autowired
     ResponseData responseData;
     @Autowired
-    RiskPostService riskPostService;
+    RiskMarkService riskMarkService;
+    @Autowired
+    RiskControlService riskControlService;
+    @Autowired
+    StaffService staffService;
+
 
     /**
-     * 获取所有风险
+     * 获取风险矩阵
      *
      * @return
      */
-    @RequestMapping("/get_all")
+    @UserToken
+    @RequestMapping("/get_risk_control")
     public Result getAll() {
-        return null;
-    }
-
-    /**
-     * 获取单个风险
-     *
-     * @return
-     */
-    @RequestMapping("/get_all_risk")
-    public Result getRisk() {
-        return null;
+        return responseData.write("获取成功",200,riskControlService.selectAll());
     }
 
     /**
@@ -50,8 +54,12 @@ public class RiskController {
      *
      * @return
      */
+    @UserToken
     @RequestMapping("send_modify")
-    public Result sendModify() {
+    public Result sendModify(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("token");
+        Staff staff = staffService.getStaffFromToken(token);
+        // TODO 根据权限选择，直接修改或暂存
         return null;
     }
 
@@ -60,23 +68,37 @@ public class RiskController {
      *
      * @return
      */
+    @UserToken
     @RequestMapping("/send_riskGrade")
     public Result sendRiskGrade(@Valid RiskMark riskMark, BindingResult errors) {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
-
-        return null;
+        riskMarkService.insert(riskMark);
+        return responseData.write("评分成功", 200, new HashMap<>());
     }
 
     /**
-     * 获取所有个人评分
+     * 获取所有个人评分，按时间降序
      *
      * @return
      */
+    @AdministratorToken
     @RequestMapping("/get_all_grade")
     public Result getGrade() {
+        List<RiskMark> riskMarkList = riskMarkService.selectAll();
+        Collections.sort(riskMarkList);
+        return responseData.write("获取成功", 200, riskMarkList);
+    }
+
+    /**
+     * 风险统计结果，排序
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/get_result")
+    public Result getResult(){
         return null;
     }
 
@@ -85,6 +107,7 @@ public class RiskController {
      *
      * @return
      */
+    // TODO 清空风险
     @RequestMapping("/clear/risk")
     public Result clearRisk() {
         return null;
