@@ -62,11 +62,13 @@ public class RiskController {
         if (staff.getStaffWeight() == 1.0) {
             // 数据库写入
             riskControlService.insertRiskPost(riskControl);
+            return responseData.write("提交成功", 200, new HashMap<>());
         } else if (staff.getStaffWeight() == 4.0) {
             // 数据库修改
             riskControlService.update(riskControl);
+            return responseData.write("修改成功", 200, new HashMap<>());
         }
-        return null;
+        return responseData.write("员工权值存在问题！", 444, new HashMap<>());
     }
 
     /**
