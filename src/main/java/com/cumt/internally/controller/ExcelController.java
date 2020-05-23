@@ -1,6 +1,5 @@
 package com.cumt.internally.controller;
 
-import com.cumt.internally.annotation.PassToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Project;
 import com.cumt.internally.model.Result;
@@ -16,7 +15,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +46,7 @@ public class ExcelController {
      * @param file
      * @return
      */
-    @PassToken
+//    @PassToken
 //    @RequestMapping("/import/risk")
     public Result importRisk(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
@@ -188,16 +186,6 @@ public class ExcelController {
     }
 
     /**
-     * 导出风险矩阵
-     *
-     * @return
-     */
-    @RequestMapping("/export/risk")
-    public Result exportRisk() {
-        return null;
-    }
-
-    /**
      * 流程图信息导入
      * 无需求，暂不启用·
      *
@@ -205,8 +193,8 @@ public class ExcelController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/import/flow_sheet")
-    @PassToken
+//    @PassToken
+//    @PostMapping("/import/flow_sheet")
     public Result readExcelFlowSheet(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
