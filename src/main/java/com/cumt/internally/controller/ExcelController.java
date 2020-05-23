@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -204,7 +205,7 @@ public class ExcelController {
      * @return
      * @throws Exception
      */
-//    @PostMapping("/import/flow_sheet")
+    @PostMapping("/import/flow_sheet")
     @PassToken
     public Result readExcelFlowSheet(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
@@ -240,7 +241,7 @@ public class ExcelController {
             if (!StringUtils.isBlank(row.getCell(0).toString())) {
                 Project project = new Project();
                 Cell cell = row.getCell(0);
-                project.setNum(Integer.valueOf(cell.toString()));
+                project.setNum((int) Double.parseDouble(cell.toString()));
                 cell = row.getCell(1);
                 project.setStepName(cell.toString());
                 cell = row.getCell(3);
@@ -248,14 +249,14 @@ public class ExcelController {
                 cell = row.getCell(4);
                 project.setStepDescribe(cell.toString());
                 cell = row.getCell(5);
-                project.setStepDescribe(cell.toString());
+                project.setDocument(cell.toString());
                 project.setCreateTime(new Date());
                 project.setUpdateTime(new Date());
-                // 类别，测试时使用
-//                cell = row.getCell(6);
-//                project.setType(cell.toString());
+//                 类别，测试时使用
+                cell = row.getCell(6);
+                project.setType(cell.toString());
                 // 类别，正常情况时使用，但是好像不用了
-                project.setType(fileName);
+//                project.setType(fileName);
                 cell = row.getCell(2);
                 project.setDepartment(cell.toString());
                 while ((rowIndex + 1) <= lastRowIndex &&
