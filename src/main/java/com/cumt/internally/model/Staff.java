@@ -2,9 +2,7 @@ package com.cumt.internally.model;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +12,10 @@ import java.util.Map;
  * @date 2020/5/12 13:10
  */
 public class Staff implements Common {
-    @NotNull(message = "工号不能为空")
+    @NotBlank(message = "工号不能为空")
     @Length(min = 1, max = 20, message = "工号长度必须在1-20之间")
     private String staffId; // 工号
-    @NotNull(message = "姓名不能为空")
+    @NotBlank(message = "姓名不能为空")
     @Length(min = 1, max = 20, message = "用户名长度必须在1-20之间")
     private String staffName; // 姓名
     private String staffUnit; // 单位

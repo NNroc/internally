@@ -1,5 +1,6 @@
 package com.cumt.internally.mapper;
-import com.cumt.internally.model.RiskPost;
+
+import com.cumt.internally.model.RiskMark;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -13,40 +14,41 @@ import java.util.List;
  */
 public interface RiskPostMapper {
     @Delete({
-        "delete from risk_post",
-        "where id = #{id,jdbcType=INTEGER}"
+            "delete from risk_mark",
+            "where id = #{id,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into risk_post (staffId, ",
-        "possibleGrade, effectGrade, ",
-        "createTime, updateTime)",
-        "values (#{staffId,jdbcType=VARCHAR}, ",
-        "#{possibleGrade,jdbcType=DOUBLE}, #{effectGrade,jdbcType=DOUBLE}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
+            "insert into risk_mark (staffId, riskControlId,",
+            "possibleGrade, effectGrade,",
+            "createTime, updateTime)",
+            "values (#{staffId,jdbcType=VARCHAR}, #{riskControlId,jdbcType=VARCHAR},",
+            "#{possibleGrade,jdbcType=DOUBLE}, #{effectGrade,jdbcType=DOUBLE}, ",
+            "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
-    int insert(RiskPost record);
+    int insert(RiskMark record);
 
     @Select({
-        "select * from risk_post",
-        "where id = #{id,jdbcType=INTEGER}"
+            "select * from risk_mark",
+            "where riskControlId = #{riskControlId,jdbcType=INTEGER}"
     })
-    RiskPost selectByPrimaryKey(Integer id);
+    RiskMark selectByRiskControlId(Integer riskControlId);
 
     @Select({
-        "select * from risk_post"
+            "select * from risk_mark"
     })
-    List<RiskPost> selectAll();
+    List<RiskMark> selectAll();
 
     @Update({
-        "update risk_post",
-        "set staffId = #{staffId,jdbcType=VARCHAR},",
-          "possibleGrade = #{possibleGrade,jdbcType=DOUBLE},",
-          "effectGrade = #{effectGrade,jdbcType=DOUBLE},",
-          "createTime = #{createTime,jdbcType=TIMESTAMP},",
-          "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
-        "where staffId = #{staffId,jdbcType=VARCHAR}"
+            "update risk_mark",
+            "set staffId = #{staffId,jdbcType=VARCHAR},",
+            "riskControlId = #{riskControlId,jdbcType=VARCHAR},",
+            "possibleGrade = #{possibleGrade,jdbcType=DOUBLE},",
+            "effectGrade = #{effectGrade,jdbcType=DOUBLE},",
+            "createTime = #{createTime,jdbcType=TIMESTAMP},",
+            "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
+            "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
-    int updateByPrimaryKey(RiskPost record);
+    int updateByStaffId(RiskMark riskMark);
 }

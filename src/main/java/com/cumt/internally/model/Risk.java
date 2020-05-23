@@ -9,56 +9,56 @@ import java.util.Map;
  * @date 2020/5/12 13:11
  */
 public class Risk implements Common {
-    private String id; //序号
-    private Integer riskSort; //风险排序
-    private String riskUnit; //单位业务
-    private String riskClassification; //风险类别
-    private String riskName; //风险名称
-    private String riskDescribe; //风险描述
-    private double riskPossibility; //可能性
-    private double riskImpact; //影响性
-    private String riskLevel; //风险等级
-    private Date createTime; //创建时间
-    private Date updateTime; //更新时间
+    private int id; //序号
+    private int riskSort; // 风险排序
+    private String processName; // 业务流程
+    private String processPoint; // 流程节点
+    private String riskId; // 风险编号
+    private String riskDescribe; // 风险描述
+    private double riskPossibility; // 可能性
+    private double riskImpact; // 影响性
+    private String riskLevel; // 风险等级
+    private Date createTime; // 创建时间
+    private Date updateTime; // 更新时间
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getRiskSort() {
+    public int getRiskSort() {
         return riskSort;
     }
 
-    public void setRiskSort(Integer riskSort) {
+    public void setRiskSort(int riskSort) {
         this.riskSort = riskSort;
     }
 
-    public String getRiskUnit() {
-        return riskUnit;
+    public String getProcessName() {
+        return processName;
     }
 
-    public void setRiskUnit(String riskUnit) {
-        this.riskUnit = riskUnit;
+    public void setProcessName(String processName) {
+        this.processName = processName;
     }
 
-    public String getRiskClassification() {
-        return riskClassification;
+    public String getProcessPoint() {
+        return processPoint;
     }
 
-    public void setRiskClassification(String riskClassification) {
-        this.riskClassification = riskClassification;
+    public void setProcessPoint(String processPoint) {
+        this.processPoint = processPoint;
     }
 
-    public String getRiskName() {
-        return riskName;
+    public String getRiskId() {
+        return riskId;
     }
 
-    public void setRiskName(String riskName) {
-        this.riskName = riskName;
+    public void setRiskId(String riskId) {
+        this.riskId = riskId;
     }
 
     public String getRiskDescribe() {
@@ -112,11 +112,10 @@ public class Risk implements Common {
     @Override
     public Map toDict() {
         Map<Object, Object> map = new HashMap<>();
-        map.put("id", id);
         map.put("riskSort", riskSort);
-        map.put("riskUnit", riskUnit);
-        map.put("riskClassification", riskClassification);
-        map.put("riskName", riskName);
+        map.put("processName", processName);
+        map.put("processPoint", processPoint);
+        map.put("riskId", riskId);
         map.put("riskDescribe", riskDescribe);
         map.put("riskPossibility", riskPossibility);
         map.put("riskImpact", riskImpact);
