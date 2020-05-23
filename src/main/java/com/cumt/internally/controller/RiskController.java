@@ -37,7 +37,6 @@ public class RiskController {
     @Autowired
     StaffService staffService;
 
-
     /**
      * 获取风险矩阵
      *
@@ -46,7 +45,7 @@ public class RiskController {
     @UserToken
     @RequestMapping("/get_risk_control")
     public Result getAll() {
-        return responseData.write("获取成功",200,riskControlService.selectAll());
+        return responseData.write("获取成功", 200, riskControlService.selectAll());
     }
 
     /**
@@ -59,7 +58,12 @@ public class RiskController {
     public Result sendModify(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
-        // TODO 根据权限选择，直接修改或暂存
+        if (staff.getStaffWeight() == 1.0) {
+            // 数据库写入
+        } else if (staff.getStaffWeight() == 4.0) {
+            // 数据库修改
+        }
+        // TODO 根据权限选择，直接修改或暂存，需加暂存的数据库
         return null;
     }
 
@@ -93,23 +97,14 @@ public class RiskController {
     }
 
     /**
-     * 风险统计结果，排序
-     * @return
-     */
-    @AdministratorToken
-    @RequestMapping("/get_result")
-    public Result getResult(){
-        return null;
-    }
-
-    /**
-     * 清空风险
+     * 清空风险评分
      *
      * @return
      */
-    // TODO 清空风险
+    @AdministratorToken
     @RequestMapping("/clear/risk")
     public Result clearRisk() {
+        riskMarkService.clear();
         return null;
     }
 

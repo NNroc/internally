@@ -51,4 +51,7 @@ public interface RiskMarkMapper {
             "where staffId = #{staffId,jdbcType=VARCHAR}"
     })
     int updateByStaffId(RiskMark riskMark);
+
+    @Update("truncate table risk_mark")
+    void clear();
 }

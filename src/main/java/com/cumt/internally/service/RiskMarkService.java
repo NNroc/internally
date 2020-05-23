@@ -44,4 +44,11 @@ public class RiskMarkService {
     public List<RiskMark> selectAll() {
         return riskMarkMapper.selectAll();
     }
+
+    /**
+     * 清除记录
+     */
+    public void clear(){
+        riskMarkMapper.clear();
+    }
 }
