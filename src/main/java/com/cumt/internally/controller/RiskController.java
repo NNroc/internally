@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,16 +79,32 @@ public class RiskController {
      */
     @UserToken
     @RequestMapping("/send_riskGrade")
-    public Result sendRiskGrade(@Valid RiskMark riskMark, BindingResult errors,HttpServletRequest httpServletRequest) {
+    public Result sendRiskGrade(@Valid RiskMark riskMark, BindingResult errors, HttpServletRequest httpServletRequest) {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
-        riskMark.setStaffId(staff);
-        riskMarkService.insert(riskMark);
-        return responseData.write("评分成功", 200, new HashMap<>());
+        riskMark.setStaffId(staff.getStaffId());
+        riskMark.setCreateTime(new Date());
+        riskMark.setUpdateTime(new Date());
+        if (checkIdExist(riskMark)) {
+            riskMarkService.insert(riskMark);
+            return responseData.write("评分成功", 200, new HashMap<>());
+        } else {
+            return responseData.write("id不存在或已经评估过分", 400, new HashMap<>());
+        }
+    }
+
+    private boolean checkIdExist(RiskMark riskMark) {
+        if (staffService.selectByStaffId(riskMark.getStaffId()) != null &&
+                riskControlService.selectById(riskMark.getRiskControlId()) != null &&
+                riskMarkService.selectByStaffIdAndRiskControlId(riskMark.getStaffId(), riskMark.getRiskControlId()) == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -112,7 +129,7 @@ public class RiskController {
     @RequestMapping("/clear/risk")
     public Result clearRisk() {
         riskMarkService.clear();
-        return null;
+        return responseData.write("清空成功", 200, new HashMap<>());
     }
 
 }

@@ -36,6 +36,13 @@ public interface RiskMarkMapper {
     RiskMark selectByRiskControlId(Integer riskControlId);
 
     @Select({
+            "select * from risk_mark",
+            "where staffId = #{staffId,jdbcType=VARCHAR}",
+            "and riskControlId = #{riskControlId,jdbcType=INTEGER}"
+    })
+    RiskMark selectByStaffIdAndRiskControlId(String staffId, Integer riskControlId);
+
+    @Select({
             "select * from risk_mark"
     })
     List<RiskMark> selectAll();

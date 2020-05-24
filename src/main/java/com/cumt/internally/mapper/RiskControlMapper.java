@@ -52,7 +52,7 @@ public interface RiskControlMapper {
             "select * from risk_control",
             "where id = #{id,jdbcType=INTEGER}"
     })
-    RiskControl selectByPrimaryKey(Integer id);
+    RiskControl selectById(Integer id);
 
     @Select({
             "select * from risk_control"

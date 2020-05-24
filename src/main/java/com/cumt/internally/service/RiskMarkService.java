@@ -37,6 +37,17 @@ public class RiskMarkService {
     }
 
     /**
+     * 按两个id为联合主键查找
+     *
+     * @param staffId
+     * @param controlId
+     * @return
+     */
+    public RiskMark selectByStaffIdAndRiskControlId(String staffId, Integer controlId) {
+        return riskMarkMapper.selectByStaffIdAndRiskControlId(staffId, controlId);
+    }
+
+    /**
      * 查看全部情况
      *
      * @return
@@ -48,7 +59,7 @@ public class RiskMarkService {
     /**
      * 清除记录
      */
-    public void clear(){
+    public void clear() {
         riskMarkMapper.clear();
     }
 }

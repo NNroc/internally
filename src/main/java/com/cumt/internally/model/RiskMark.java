@@ -1,7 +1,7 @@
 package com.cumt.internally.model;
 
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +12,8 @@ import java.util.Map;
  */
 public class RiskMark implements Common, Comparable<RiskMark> {
     private Integer id;
-    @NotBlank(message = "工号不能为空")
     private String staffId; // 工号
-    @NotBlank(message = "风险id不能为空")
+    @NotNull(message = "风险id不能为空")
     private int riskControlId;
     @Digits(integer = 5, fraction = 2, message = "整数部分最多5位，小数最多2位")
     private double possibleGrade; //可能分
@@ -93,7 +92,7 @@ public class RiskMark implements Common, Comparable<RiskMark> {
 
     @Override
     public int compareTo(RiskMark riskMark) {
-        if (this.updateTime.after(riskMark.updateTime)) {
+        if (this.updateTime.before(riskMark.updateTime)) {
             return 1;
         } else {
             return -1;

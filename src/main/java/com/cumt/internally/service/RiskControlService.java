@@ -24,6 +24,10 @@ public class RiskControlService {
         riskControlMapper.insertRiskPost(riskControl);
     }
 
+    public RiskControl selectById(Integer id){
+        return riskControlMapper.selectById(id);
+    }
+
     public List<RiskControl> selectAll(){
         return riskControlMapper.selectAll();
     }
