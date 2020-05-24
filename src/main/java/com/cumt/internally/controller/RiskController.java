@@ -78,11 +78,14 @@ public class RiskController {
      */
     @UserToken
     @RequestMapping("/send_riskGrade")
-    public Result sendRiskGrade(@Valid RiskMark riskMark, BindingResult errors) {
+    public Result sendRiskGrade(@Valid RiskMark riskMark, BindingResult errors,HttpServletRequest httpServletRequest) {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
+        String token = httpServletRequest.getHeader("token");
+        Staff staff = staffService.getStaffFromToken(token);
+        riskMark.setStaffId(staff);
         riskMarkService.insert(riskMark);
         return responseData.write("评分成功", 200, new HashMap<>());
     }
