@@ -27,7 +27,7 @@ public class AnalysisController {
     StaffService staffService;
 
     /**
-     * // TODO 风险统计结果，列举所有风险，排序
+     * // TODO 风险统计结果（列举所有风险，排序？）
      *
      * @return
      */
@@ -38,7 +38,7 @@ public class AnalysisController {
     }
 
     /**
-     * // TODO 风险统计结果分析，排序
+     * // TODO 风险统计结果分析，排序（计算方式？等级？）
      * 风险等级	风险个数 所占比例
      *
      * @return
@@ -50,7 +50,7 @@ public class AnalysisController {
     }
 
     /**
-     * // TODO 问卷统计份数分析
+     * // TODO 问卷统计份数分析（职级？问卷对象？）
      * 职级	问卷份数 权值系数
      *
      * @return
@@ -63,7 +63,7 @@ public class AnalysisController {
 
 
     /**
-     * // TODO 废卷统计分析
+     * // TODO 废卷统计分析（问卷对象？）
      * 统计问卷	废卷 问卷合计 废卷率
      *
      * @return
