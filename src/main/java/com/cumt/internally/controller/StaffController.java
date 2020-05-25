@@ -54,6 +54,7 @@ public class StaffController {
             if (staffChoose.getStaffPwd().equals(MD5Util.md5(staff.getStaffPwd()))) {
                 String token = JwtUtil.getToken(staff, "salt", 60 * 24 * 30);
                 map.put("token", token);
+                map.put("weight",staff.getStaffWeight());
                 // 返回token
                 return responseData.write("登录成功", 200, map);
             } else {
