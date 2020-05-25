@@ -126,7 +126,7 @@ public class RiskController {
      * @return
      */
     @AdministratorToken
-    @RequestMapping("/clear/risk")
+    @RequestMapping("/clear")
     public Result clearRisk() {
         riskMarkService.clear();
         return responseData.write("清空成功", 200, new HashMap<>());
