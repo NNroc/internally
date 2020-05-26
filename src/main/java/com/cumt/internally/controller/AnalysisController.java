@@ -5,6 +5,7 @@ import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.Risk;
 import com.cumt.internally.model.RiskMark;
+import com.cumt.internally.model.analysis.PaperNumber;
 import com.cumt.internally.service.RiskControlService;
 import com.cumt.internally.service.RiskMarkService;
 import com.cumt.internally.service.StaffService;
@@ -46,6 +47,18 @@ public class AnalysisController {
     @AdministratorToken
     @RequestMapping("/get_all_risk")
     public Result getResult() {
+//        possibleAvg[0] = possibleAvg[0] * 0.15 / (double) num[0];
+//        effectAvg[0] = effectAvg[0] * 0.15 / (double) num[0];
+//        possibleAvg[1] = possibleAvg[1] * 0.15 / (double) num[1];
+//        effectAvg[1] = effectAvg[1] * 0.15 / (double) num[1];
+//        possibleAvg[2] = possibleAvg[2] * 0.2 / (double) num[2];
+//        effectAvg[2] = effectAvg[2] * 0.2 / (double) num[2];
+//        possibleAvg[3] = possibleAvg[3] * 0.2 / (double) num[3];
+//        effectAvg[3] = effectAvg[3] * 0.2 / (double) num[3];
+//        possibleAvg[4] = possibleAvg[4] * 0.3 / (double) num[4];
+//        effectAvg[4] = effectAvg[4] * 0.3 / (double) num[4];
+//        double possibleGrade=0;
+//        double effectGrade=0;
         // 装入 Risk 实体
         List<Risk> riskList = new ArrayList<Risk>();
         return null;
@@ -72,52 +85,57 @@ public class AnalysisController {
     @AdministratorToken
     @RequestMapping("/get_num")
     public Result getNum() {
-        int[] num = new int[5];
-        double[] possibleAvg = new double[5];
-        double[] effectAvg = new double[5];
+        int[] num = new int[6];
         List<RiskMark> riskMarkList = riskMarkService.selectAll();
         for (RiskMark riskMark : riskMarkList) {
             if (riskMark.getStaffDuty().equals("副科级")) {
-                possibleAvg[0] += riskMark.getPossibleGrade();
-                effectAvg[0] += riskMark.getEffectGrade();
                 num[0]++;
             } else if (riskMark.getStaffDuty().equals("科级")) {
-                possibleAvg[1] += riskMark.getPossibleGrade();
-                effectAvg[1] += riskMark.getEffectGrade();
                 num[1]++;
             } else if (riskMark.getStaffDuty().equals("副处级")) {
-                possibleAvg[2] += riskMark.getPossibleGrade();
-                effectAvg[2] += riskMark.getEffectGrade();
                 num[2]++;
             } else if (riskMark.getStaffDuty().equals("处级")) {
-                possibleAvg[3] += riskMark.getPossibleGrade();
-                effectAvg[3] += riskMark.getEffectGrade();
                 num[3]++;
             } else if (riskMark.getStaffDuty().equals("校领导")) {
-                possibleAvg[4] += riskMark.getPossibleGrade();
-                effectAvg[4] += riskMark.getEffectGrade();
                 num[4]++;
             } else {
                 return responseData.write("员工职务存在错误！建议查看员工职务并修改！", 444, new HashMap<>());
             }
+            num[5]++;
         }
-        possibleAvg[0] = possibleAvg[0] * 0.15 / (double) num[0];
-        effectAvg[0] = effectAvg[0] * 0.15 / (double) num[0];
-        possibleAvg[1] = possibleAvg[1] * 0.15 / (double) num[1];
-        effectAvg[1] = effectAvg[1] * 0.15 / (double) num[1];
-        possibleAvg[2] = possibleAvg[2] * 0.2 / (double) num[2];
-        effectAvg[2] = effectAvg[2] * 0.2 / (double) num[2];
-        possibleAvg[3] = possibleAvg[3] * 0.2 / (double) num[3];
-        effectAvg[3] = effectAvg[3] * 0.2 / (double) num[3];
-        possibleAvg[4] = possibleAvg[4] * 0.3 / (double) num[4];
-        effectAvg[4] = effectAvg[4] * 0.3 / (double) num[4];
-        double possibleGrade=0;
-        double effectGrade=0;
-        for(int i=0;i<5;i++){
-            possibleGrade+=possibleAvg[i];
-            effectGrade+=effectAvg[i];
-        }
-        return null;
+        List<PaperNumber> paperNumbers = new ArrayList<>();
+        PaperNumber paperNumber = new PaperNumber();
+        // 装入数据
+        paperNumber.setStaffDuty("副科级");
+        paperNumber.setPaperNum(num[0]);
+        paperNumber.setWeight(0.15);
+        paperNumbers.add(paperNumber);
+
+        paperNumber.setStaffDuty("科级");
+        paperNumber.setPaperNum(num[1]);
+        paperNumber.setWeight(0.15);
+        paperNumbers.add(paperNumber);
+
+        paperNumber.setStaffDuty("副处级");
+        paperNumber.setPaperNum(num[2]);
+        paperNumber.setWeight(0.15);
+        paperNumbers.add(paperNumber);
+
+        paperNumber.setStaffDuty("处级");
+        paperNumber.setPaperNum(num[3]);
+        paperNumber.setWeight(0.15);
+        paperNumbers.add(paperNumber);
+
+        paperNumber.setStaffDuty("校领导");
+        paperNumber.setPaperNum(num[4]);
+        paperNumber.setWeight(0.15);
+        paperNumbers.add(paperNumber);
+
+        paperNumber.setStaffDuty("总计");
+        paperNumber.setPaperNum(num[5]);
+        paperNumber.setWeight(1);
+        paperNumbers.add(paperNumber);
+        return responseData.write("问卷统计份数分析", 200, paperNumbers);
     }
 
 
