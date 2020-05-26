@@ -77,6 +77,5 @@ public interface RiskControlMapper {
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where id = #{id,jdbcType=INTEGER}"
     })
-    // TODO 修改方式
-    int updateByPrimaryKey(RiskControl record);
+    int updateByPrimaryKey(RiskControl riskControl);
 }
