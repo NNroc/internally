@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class RiskControl implements Common {
     private Integer id;
-    private String mainName; //流程总名称
+    private String mainName; // 流程总名称
     private String processName; // 业务流程
     private String processPoint; // 流程节点
     private String riskId; // 风险编号

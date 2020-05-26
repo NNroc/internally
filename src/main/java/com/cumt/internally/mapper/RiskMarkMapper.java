@@ -1,5 +1,6 @@
 package com.cumt.internally.mapper;
 
+import com.cumt.internally.model.Risk;
 import com.cumt.internally.model.RiskMark;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -43,9 +44,10 @@ public interface RiskMarkMapper {
     RiskMark selectByStaffIdAndRiskControlId(String staffId, Integer riskControlId);
 
     @Select({
-            "select * from risk_mark"
+            "select risk_mark.*, staff.staffName, staff.staffDuty from risk_mark, staff",
+            "where staff.staffId = risk_mark.staffId"
     })
-    List<RiskMark> selectAll();
+    List<Risk> selectAll();
 
     @Update({
             "update risk_mark",

@@ -13,14 +13,32 @@ import java.util.Map;
 public class RiskMark implements Common, Comparable<RiskMark> {
     private Integer id;
     private String staffId; // 工号
+    private String staffName; // 员工姓名，风险统计时用
+    private String staffDuty; // 职务，风险统计时用
     @NotNull(message = "风险id不能为空")
     private int riskControlId;
     @Digits(integer = 5, fraction = 2, message = "整数部分最多5位，小数最多2位")
-    private double possibleGrade; //可能分
+    private double possibleGrade; // 可能分
     @Digits(integer = 5, fraction = 2, message = "整数部分最多5位，小数最多2位")
-    private double effectGrade; //影响分
-    private Date createTime; //创建时间
-    private Date updateTime; //更新时间
+    private double effectGrade; // 影响分
+    private Date createTime; // 创建时间
+    private Date updateTime; // 更新时间
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public String getStaffDuty() {
+        return staffDuty;
+    }
+
+    public void setStaffDuty(String staffDuty) {
+        this.staffDuty = staffDuty;
+    }
 
     public Integer getId() {
         return id;

@@ -8,20 +8,29 @@ import java.util.Map;
  * @author NNroc
  * @date 2020/5/12 13:11
  */
-public class Risk implements Common {
-    private int id; //序号
-    private int riskSort; // 风险排序
+public class Risk extends RiskControl implements Common {
+    private int id; // 序号
+    private String mainName; // 流程总名称
     private String processName; // 业务流程
     private String processPoint; // 流程节点
     private String riskId; // 风险编号
     private String riskDescribe; // 风险描述
-    private double riskPossibility; // 可能性
-    private double riskImpact; // 影响性
-    private String riskLevel; // 风险等级
+    private String controlObjectives; // 控制目标
+    private String controlId; // 控制编号
+    private String controlName; // 控制步骤名称
+    private String controlMeasures; // 控制措施
+    private String responsiblePosition; // 责任岗位
+    private String correspondingSystem; // 对应制度
+    private String evidence; // 实施证据
     private Date createTime; // 创建时间
     private Date updateTime; // 更新时间
 
-    public int getId() {
+    private int riskSort; // 风险编号
+    private double possibleGrade; // 可能性
+    private double effectGrade; // 影响性
+    private String riskLevel; // 风险等级
+
+    public Integer getId() {
         return id;
     }
 
@@ -35,6 +44,14 @@ public class Risk implements Common {
 
     public void setRiskSort(int riskSort) {
         this.riskSort = riskSort;
+    }
+
+    public String getMainName() {
+        return mainName;
+    }
+
+    public void setMainName(String mainName) {
+        this.mainName = mainName;
     }
 
     public String getProcessName() {
@@ -69,28 +86,60 @@ public class Risk implements Common {
         this.riskDescribe = riskDescribe;
     }
 
-    public double getRiskPossibility() {
-        return riskPossibility;
+    public String getControlObjectives() {
+        return controlObjectives;
     }
 
-    public void setRiskPossibility(double riskPossibility) {
-        this.riskPossibility = riskPossibility;
+    public void setControlObjectives(String controlObjectives) {
+        this.controlObjectives = controlObjectives;
     }
 
-    public double getRiskImpact() {
-        return riskImpact;
+    public String getControlId() {
+        return controlId;
     }
 
-    public void setRiskImpact(double riskImpact) {
-        this.riskImpact = riskImpact;
+    public void setControlId(String controlId) {
+        this.controlId = controlId;
     }
 
-    public String getRiskLevel() {
-        return riskLevel;
+    public String getControlName() {
+        return controlName;
     }
 
-    public void setRiskLevel(String riskLevel) {
-        this.riskLevel = riskLevel;
+    public void setControlName(String controlName) {
+        this.controlName = controlName;
+    }
+
+    public String getControlMeasures() {
+        return controlMeasures;
+    }
+
+    public void setControlMeasures(String controlMeasures) {
+        this.controlMeasures = controlMeasures;
+    }
+
+    public String getResponsiblePosition() {
+        return responsiblePosition;
+    }
+
+    public void setResponsiblePosition(String responsiblePosition) {
+        this.responsiblePosition = responsiblePosition;
+    }
+
+    public String getCorrespondingSystem() {
+        return correspondingSystem;
+    }
+
+    public void setCorrespondingSystem(String correspondingSystem) {
+        this.correspondingSystem = correspondingSystem;
+    }
+
+    public String getEvidence() {
+        return evidence;
+    }
+
+    public void setEvidence(String evidence) {
+        this.evidence = evidence;
     }
 
     public Date getCreateTime() {
@@ -109,6 +158,30 @@ public class Risk implements Common {
         this.updateTime = updateTime;
     }
 
+    public double getPossibleGrade() {
+        return possibleGrade;
+    }
+
+    public void setPossibleGrade(double possibleGrade) {
+        this.possibleGrade = possibleGrade;
+    }
+
+    public double getEffectGrade() {
+        return effectGrade;
+    }
+
+    public void setEffectGrade(double effectGrade) {
+        this.effectGrade = effectGrade;
+    }
+
+    public String getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
+
     @Override
     public Map toDict() {
         Map<Object, Object> map = new HashMap<>();
@@ -117,8 +190,8 @@ public class Risk implements Common {
         map.put("processPoint", processPoint);
         map.put("riskId", riskId);
         map.put("riskDescribe", riskDescribe);
-        map.put("riskPossibility", riskPossibility);
-        map.put("riskImpact", riskImpact);
+        map.put("riskPossibility", possibleGrade);
+        map.put("riskImpact", effectGrade);
         map.put("riskLevel", riskLevel);
         map.put("createTime", createTime);
         map.put("updateTime", updateTime);
