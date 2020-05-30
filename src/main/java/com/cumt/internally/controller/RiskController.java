@@ -145,7 +145,7 @@ public class RiskController {
     }
 
     @AdministratorToken
-    @RequestMapping("/get_grade_staffDuty")
+    @RequestMapping("/get_grade_by_staffDuty")
     public Result getGradeByStaffDuty(@RequestParam String staffDuty) {
         List<RiskMark> riskMarkList = riskMarkService.selectByStaffDuty(staffDuty);
         Collections.sort(riskMarkList);
