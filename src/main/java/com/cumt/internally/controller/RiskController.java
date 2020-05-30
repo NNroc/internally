@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,6 +120,38 @@ public class RiskController {
         Collections.sort(riskMarkList);
         return responseData.write("获取成功", 200, riskMarkList);
     }
+
+    @AdministratorToken
+    @RequestMapping("/get_grade_by_staffId")
+    public Result getGradeByStaffId(@RequestParam String staffId) {
+        List<RiskMark> riskMarkList = riskMarkService.selectByStaffId(staffId);
+        Collections.sort(riskMarkList);
+        return responseData.write("获取成功", 200, riskMarkList);
+    }
+    @AdministratorToken
+    @RequestMapping("/get_grade_by_staffName")
+    public Result getGradeByStaffName(@RequestParam String staffName) {
+        List<RiskMark> riskMarkList = riskMarkService.selectByStaffName(staffName);
+        Collections.sort(riskMarkList);
+        return responseData.write("获取成功", 200, riskMarkList);
+    }
+
+    @AdministratorToken
+    @RequestMapping("/get_grade_by_riskControlId")
+    public Result getGradeByRiskId(@RequestParam Integer riskControlId) {
+        List<RiskMark> riskMarkList = riskMarkService.selectByRiskControlId(riskControlId);
+        Collections.sort(riskMarkList);
+        return responseData.write("获取成功", 200, riskMarkList);
+    }
+
+    @AdministratorToken
+    @RequestMapping("/get_grade_staffDuty")
+    public Result getGradeByStaffDuty(@RequestParam String staffDuty) {
+        List<RiskMark> riskMarkList = riskMarkService.selectByStaffDuty(staffDuty);
+        Collections.sort(riskMarkList);
+        return responseData.write("获取成功", 200, riskMarkList);
+    }
+
 
     /**
      * 清空风险评分

@@ -26,14 +26,20 @@ public class RiskMarkService {
         return riskMarkMapper.insert(riskMark);
     }
 
-    /**
-     * 根据查看计算评分
-     *
-     * @param riskControlId
-     * @return
-     */
-    public RiskMark selectByRiskControlId(Integer riskControlId) {
+    public List<RiskMark> selectByStaffId(String staffId) {
+        return riskMarkMapper.selectByStaffId(staffId);
+    }
+
+    public List<RiskMark> selectByStaffName(String staffName) {
+        return riskMarkMapper.selectByStaffName(staffName);
+    }
+
+    public List<RiskMark> selectByRiskControlId(Integer riskControlId) {
         return riskMarkMapper.selectByRiskControlId(riskControlId);
+    }
+
+    public List<RiskMark> selectByStaffDuty(String staffDuty) {
+        return riskMarkMapper.selectByStaffDuty(staffDuty);
     }
 
     /**

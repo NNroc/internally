@@ -1,6 +1,5 @@
 package com.cumt.internally.mapper;
 
-import com.cumt.internally.model.Risk;
 import com.cumt.internally.model.RiskMark;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -31,10 +30,32 @@ public interface RiskMarkMapper {
     int insert(RiskMark record);
 
     @Select({
-            "select * from risk_mark",
-            "where riskControlId = #{riskControlId,jdbcType=INTEGER}"
+            "select * from risk_mark, staff",
+            "where risk_mark.staffId = #{staffId,jdbcType=VARCHAR}",
+            "and staff.staffId = risk_mark.staffId"
     })
-    RiskMark selectByRiskControlId(Integer riskControlId);
+    List<RiskMark> selectByStaffId(String staffId);
+
+    @Select({
+            "select * from risk_mark, staff",
+            "where staffName = #{staffName,jdbcType=VARCHAR}",
+            "and staff.staffId = risk_mark.staffId",
+    })
+    List<RiskMark> selectByStaffName(String staffName);
+
+    @Select({
+            "select * from risk_mark, staff",
+            "where riskControlId = #{riskControlId,jdbcType=INTEGER}",
+            "and staff.staffId = risk_mark.staffId"
+    })
+    List<RiskMark> selectByRiskControlId(Integer riskControlId);
+
+    @Select({
+            "select * from risk_mark, staff",
+            "where staffDuty = #{staffDuty,jdbcType=VARCHAR}",
+            "and staff.staffId = risk_mark.staffId",
+    })
+    List<RiskMark> selectByStaffDuty(String staffDuty);
 
     @Select({
             "select * from risk_mark",
@@ -47,7 +68,7 @@ public interface RiskMarkMapper {
             "select risk_mark.*, staff.staffName, staff.staffDuty from risk_mark, staff",
             "where staff.staffId = risk_mark.staffId"
     })
-    List<Risk> selectAll();
+    List<RiskMark> selectAll();
 
     @Update({
             "update risk_mark",

@@ -29,11 +29,7 @@ public class AnalysisController {
     RiskControlService riskControlService;
     @Autowired
     StaffService staffService;
-    // 风险等级存数据库
-    // 选择人员id，返回填过的问卷
-    // 选择人员姓名，返回填过的问卷
-    // 选择风险id，看个人打的分
-    // 选择职务，看该职务打过的分
+
     /**
      * // TODO 风险统计结果（列举所有风险，排序？得分高到低），excel
      * 职务：staffDuty
