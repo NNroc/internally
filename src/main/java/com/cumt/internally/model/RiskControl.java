@@ -8,7 +8,7 @@ import java.util.Map;
  * @author NNroc
  * @date 2020/5/12 13:13
  */
-public class RiskControl implements Common {
+public class RiskControl implements Common, Comparable<RiskControl> {
     private Integer id;
     private String mainName; // 流程总名称
     private String processName; // 业务流程
@@ -24,6 +24,13 @@ public class RiskControl implements Common {
     private String evidence; // 实施证据
     private Date createTime; // 创建时间
     private Date updateTime; // 更新时间
+
+    private int riskSort; // 风险编号
+    private double possibleGrade; // 可能性
+    private double effectGrade; // 影响性
+    private double sumGrade; // 总分
+    private String riskLevel; // 风险等级
+    private int num = 0;
 
     public String getMainName() {
         return mainName;
@@ -145,6 +152,54 @@ public class RiskControl implements Common {
         this.updateTime = updateTime;
     }
 
+    public int getRiskSort() {
+        return riskSort;
+    }
+
+    public void setRiskSort(int riskSort) {
+        this.riskSort = riskSort;
+    }
+
+    public double getPossibleGrade() {
+        return possibleGrade;
+    }
+
+    public void setPossibleGrade(double possibleGrade) {
+        this.possibleGrade = possibleGrade;
+    }
+
+    public double getEffectGrade() {
+        return effectGrade;
+    }
+
+    public void setEffectGrade(double effectGrade) {
+        this.effectGrade = effectGrade;
+    }
+
+    public double getSumGrade() {
+        return sumGrade;
+    }
+
+    public void setSumGrade(double sumGrade) {
+        this.sumGrade = sumGrade;
+    }
+
+    public String getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     @Override
     public Map toDict() {
         Map<Object, Object> map = new HashMap<>();
@@ -163,5 +218,20 @@ public class RiskControl implements Common {
         map.put("createTime", createTime);
         map.put("updateTime", updateTime);
         return map;
+    }
+
+    @Override
+    public int compareTo(RiskControl riskControl) {
+        if (this.sumGrade > riskControl.sumGrade) {
+            return 1;
+        } else if (this.sumGrade < riskControl.sumGrade) {
+            return -1;
+        } else {
+            if (this.id <= riskControl.id) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
     }
 }
