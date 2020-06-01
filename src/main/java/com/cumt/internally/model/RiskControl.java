@@ -11,10 +11,10 @@ import java.util.Map;
 public class RiskControl implements Common, Comparable<RiskControl> {
     private Integer id;
     private String mainName; // 流程总名称
-    private String processName; // 业务流程
-    private String processPoint; // 流程节点
-    private String riskId; // 风险编号
-    private String riskDescribe; // 风险描述
+    private String processName; // 业务流程，display1
+    private String processPoint; // 流程节点，display2
+    private String riskId; // 风险编号，display3
+    private String riskDescribe; // 风险描述，display4
     private String controlObjectives; // 控制目标
     private String controlId; // 控制编号
     private String controlName; // 控制步骤名称
@@ -25,11 +25,11 @@ public class RiskControl implements Common, Comparable<RiskControl> {
     private Date createTime; // 创建时间
     private Date updateTime; // 更新时间
 
-    private int riskSort; // 风险编号
-    private double possibleGrade; // 可能性
-    private double effectGrade; // 影响性
-    private double sumGrade; // 总分
-    private String riskLevel; // 风险等级
+    private int riskSort; // 风险排序，display0
+    private double possibleGrade = 0.0; // 可能性，display5
+    private double effectGrade = 0.0; // 影响性，display6
+    private double sumGrade = 0.0; // 总分，display7
+    private String riskLevel; // 风险等级，display8
     private int num = 0;
 
     public String getMainName() {

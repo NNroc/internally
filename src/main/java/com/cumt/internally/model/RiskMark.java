@@ -10,7 +10,7 @@ import java.util.Map;
  * @author NNroc
  * @date 2020/5/12 13:11
  */
-public class RiskMark implements Common{
+public class RiskMark implements Common,Comparable<RiskMark>{
     private Integer id;
     private String staffId; // 工号
     private String staffName; // 员工姓名
@@ -115,5 +115,14 @@ public class RiskMark implements Common{
         map.put("createTime", createTime);
         map.put("updateTime", updateTime);
         return map;
+    }
+
+    @Override
+    public int compareTo(RiskMark riskMark) {
+        if(this.updateTime.before(riskMark.updateTime)){
+            return 1;
+        }else {
+            return -1;
+        }
     }
 }
