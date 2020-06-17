@@ -31,7 +31,7 @@ import java.util.HashMap;
 @Slf4j
 @RestController
 @RequestMapping("/excel")
-public class ExcelController {
+public class InputController {
     @Autowired
     ResponseData responseData;
     @Autowired

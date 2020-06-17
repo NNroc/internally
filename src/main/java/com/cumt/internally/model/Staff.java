@@ -19,6 +19,7 @@ public class Staff implements Common {
     @Length(min = 1, max = 20, message = "用户名长度必须在1-20之间")
     private String staffName; // 姓名
     private String staffUnit; // 单位
+    private String staffPosition; // 职位
     private String staffDuty; // 职务
     private String staffProfessional; // 职称
     private double staffWeight; // 权重
@@ -56,6 +57,14 @@ public class Staff implements Common {
 
     public void setStaffDuty(String staffDuty) {
         this.staffDuty = staffDuty;
+    }
+
+    public String getStaffPosition() {
+        return staffPosition;
+    }
+
+    public void setStaffPosition(String staffPosition) {
+        this.staffPosition = staffPosition;
     }
 
     public String getStaffProfessional() {
@@ -104,6 +113,7 @@ public class Staff implements Common {
         map.put("staffId", staffId);
         map.put("staffName", staffName);
         map.put("staffUnit", staffUnit);
+        map.put("staffPosition",staffPosition);
         map.put("staffDuty", staffDuty);
         map.put("staffProfessional", staffProfessional);
         map.put("staffWeight", staffWeight);

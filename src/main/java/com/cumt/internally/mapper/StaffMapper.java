@@ -21,12 +21,12 @@ public interface StaffMapper {
 
     @Insert({
             "insert into staff (staffId, staffName, ",
-            "staffUnit, staffDuty, ",
+            "staffUnit, staffPosition, staffDuty, ",
             "staffProfessional, staffWeight, ",
             "staffPwd, createTime, ",
             "updateTime)",
             "values (#{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, ",
-            "#{staffUnit,jdbcType=VARCHAR}, #{staffDuty,jdbcType=VARCHAR}, ",
+            "#{staffUnit,jdbcType=VARCHAR}, #{staffPosition,jdbcType=VARCHAR}, #{staffDuty,jdbcType=VARCHAR}, ",
             "#{staffProfessional,jdbcType=VARCHAR}, #{staffWeight,jdbcType=DOUBLE}, ",
             "#{staffPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
             "#{updateTime,jdbcType=TIMESTAMP})"
@@ -55,6 +55,7 @@ public interface StaffMapper {
             "update staff",
             "set staffName = #{staffName,jdbcType=VARCHAR},",
             "staffUnit = #{staffUnit,jdbcType=VARCHAR},",
+            "staffPosition = #{staffPosition,jdbcType=VARCHAR},",
             "staffDuty = #{staffDuty,jdbcType=VARCHAR},",
             "staffProfessional = #{staffProfessional,jdbcType=VARCHAR},",
             "staffWeight = #{staffWeight,jdbcType=DOUBLE},",

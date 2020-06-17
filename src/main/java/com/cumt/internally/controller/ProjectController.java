@@ -25,26 +25,6 @@ public class ProjectController {
     ProjectService projectService;
 
     /**
-     * 上传图片
-     *
-     * @return
-     */
-    @RequestMapping("/send_pic")
-    public Result sendPic() {
-        return null;
-    }
-
-    /**
-     * 获取图片
-     *
-     * @return
-     */
-    @RequestMapping("/get_pic")
-    public Result getPic() {
-        return null;
-    }
-
-    /**
      * 获取流程说明，单个说明
      *
      * @return
@@ -59,4 +39,5 @@ public class ProjectController {
             return responseData.write("未找到", 400, new HashMap<>());
         }
     }
+
 }

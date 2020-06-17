@@ -14,7 +14,7 @@ public class RiskMark implements Common,Comparable<RiskMark>{
     private Integer id;
     private String staffId; // 工号
     private String staffName; // 员工姓名
-    private String staffDuty; // 职务
+    private String staffPosition; // 职位
     @NotNull(message = "风险id不能为空")
     private int riskControlId;
     @Digits(integer = 5, fraction = 2, message = "整数部分最多5位，小数最多2位")
@@ -33,12 +33,12 @@ public class RiskMark implements Common,Comparable<RiskMark>{
         this.staffName = staffName;
     }
 
-    public String getStaffDuty() {
-        return staffDuty;
+    public String getStaffPosition() {
+        return staffPosition;
     }
 
-    public void setStaffDuty(String staffDuty) {
-        this.staffDuty = staffDuty;
+    public void setStaffPosition(String staffPosition) {
+        this.staffPosition = staffPosition;
     }
 
     public Integer getId() {
