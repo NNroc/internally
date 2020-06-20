@@ -3,12 +3,17 @@ package com.cumt.internally.controller;
 import com.cumt.internally.annotation.AdministratorToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
+import com.cumt.internally.model.SvgMessage;
 import com.cumt.internally.utils.FileUtil;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,13 +49,13 @@ public class PictureController {
             // 文件上传的地址;
             String path = getJarRoot() + "\\svg";
             // 当前路径:G:\githubuse\internally\target
-            System.out.println("当前路径:" + Paths.get(path));
+//            System.out.println("当前路径:" + Paths.get(path));
             if (!Files.exists(Paths.get(path))) {
                 Files.createDirectories(Paths.get(path));
             }
             // 获取文件的名称
             String fileName = svg.getOriginalFilename();
-            System.out.println(fileName);
+//            System.out.println(fileName);
             // 限制文件上传的类型
             String contentType = svg.getContentType();
             if ("image/svg+xml".equals(contentType)) {
@@ -71,9 +76,19 @@ public class PictureController {
      */
     @AdministratorToken
     @RequestMapping("/get_all_pic")
-    public Result getPic() {
+    public Result getPic() throws UnknownHostException {
+        // 指定路径
         String path = getJarRoot() + "\\svg\\";
+        List<String> files = getFileName(path, ".svg", false);
+        List<SvgMessage> panes = new ArrayList<>();
+        for (String file : files) {
+            SvgMessage svgMessage = new SvgMessage();
+            svgMessage.setTitle(file);
+            svgMessage.setSVGSrc(InetAddress.getLocalHost().getHostAddress() + ":8046/internally/piloting/picture/get_pic/" + file);
+            panes.add(svgMessage);
+        }
         HashMap map = new HashMap();
+        map.put("panes", panes);
         return responseData.write("成功！", 200, map);
     }
 
@@ -111,4 +126,54 @@ public class PictureController {
         return jarFile.getParentFile().getPath();
     }
 
+    /**
+     * 得到文件夹下的所有指定后缀文件名列表
+     *
+     * @param strFolderPath 文件夹路径
+     * @param strSuffix     需要遍历的的文件后缀
+     * @param blIsAbsPath   是否采用绝对路径返回
+     * @return
+     */
+    public static List<String> getFileName(String strFolderPath, String strSuffix, boolean blIsAbsPath) {
+        List<String> lsFileName = new ArrayList<String>();
+        // 用于查找文件
+        File getDocument;
+        if (strFolderPath == null || strFolderPath.equals("")) {
+            return null;
+        } else {
+            if (strFolderPath.substring(strFolderPath.length() - 1).equals("/")) {
+                strFolderPath = strFolderPath.substring(0, strFolderPath.length() - 1);
+            }
+            getDocument = new File(strFolderPath);
+        }
+        // 存储文件容器
+        String getFileName[];
+        getFileName = getDocument.list();
+        if (getFileName == null || getFileName.length < 1) {
+            log.error("no file in path:" + strFolderPath + "! please check!!!");
+            return null;
+        }
+        // 遍历整合
+        for (int i = 0; i < getFileName.length; i++) {
+            // 文件名合法性检查
+            String strFileNameTmp = getFileName[i];
+            if (strFileNameTmp.length() <= strSuffix.length()) {
+                continue;
+            }
+            if (!strFileNameTmp.substring(strFileNameTmp.length() - strSuffix.length()).equals(strSuffix)) {
+                // 文件后缀不符合的情况
+                continue;
+            }
+            //文件路径加载
+            String strFileName = "";
+            if (blIsAbsPath) {
+                strFileName = strFolderPath + File.separator + getFileName[i];
+            } else {
+                strFileName = getFileName[i];
+            }
+            log.debug("have loaded file = " + strFileName);
+            lsFileName.add(strFileName);
+        }
+        return lsFileName;
+    }
 }
