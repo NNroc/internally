@@ -81,7 +81,6 @@ public class PictureController {
         String path = getJarRoot() + "/svg/";
         List<String> files = getFileName(path, ".svg", false);
         List<SvgMessage> panes = new ArrayList<>();
-        Collections.sort(panes);
         for (String file : files) {
             SvgMessage svgMessage = new SvgMessage();
             svgMessage.setTitle(file);
@@ -89,6 +88,7 @@ public class PictureController {
             svgMessage.setSVGSrc("http://" + ip + ":8046/internally/piloting/picture/get_pic/" + file);
             panes.add(svgMessage);
         }
+        Collections.sort(panes);
         HashMap map = new HashMap();
         map.put("panes", panes);
         return responseData.write("成功！", 200, map);

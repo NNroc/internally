@@ -1,10 +1,12 @@
 package com.cumt.internally.model;
 
+import java.util.Map;
+
 /**
  * @author NNroc
  * @date 2020/6/20 12:19
  */
-public class SvgMessage implements Comparable<SvgMessage> {
+public class SvgMessage implements Common, Comparable<SvgMessage> {
     private String title;
     private String SVGSrc;
 
@@ -26,6 +28,11 @@ public class SvgMessage implements Comparable<SvgMessage> {
 
     @Override
     public int compareTo(SvgMessage svgMessage) {
-        return svgMessage.title.compareTo(this.title);
+        return this.title.compareTo(svgMessage.title);
+    }
+
+    @Override
+    public Map toDict() {
+        return null;
     }
 }
