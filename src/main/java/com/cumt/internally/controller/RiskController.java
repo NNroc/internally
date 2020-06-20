@@ -128,6 +128,7 @@ public class RiskController {
         Collections.sort(riskMarkList);
         return responseData.write("获取成功", 200, riskMarkList);
     }
+
     @AdministratorToken
     @RequestMapping("/get_grade_by_staffName")
     public Result getGradeByStaffName(@RequestParam String staffName) {
