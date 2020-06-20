@@ -1,13 +1,14 @@
 package com.cumt.internally.controller;
 
 import com.cumt.internally.annotation.AdministratorToken;
+import com.cumt.internally.annotation.UserToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.SvgMessage;
 import com.cumt.internally.utils.FileUtil;
+import com.cumt.internally.utils.IPUtil;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -72,7 +73,7 @@ public class PictureController {
      *
      * @return
      */
-    @AdministratorToken
+    @UserToken
     @RequestMapping("/get_all_pic")
     public Result getPic() throws UnknownHostException {
         // 指定路径
@@ -82,7 +83,8 @@ public class PictureController {
         for (String file : files) {
             SvgMessage svgMessage = new SvgMessage();
             svgMessage.setTitle(file);
-            svgMessage.setSVGSrc(InetAddress.getLocalHost().getHostAddress() + ":8046/internally/piloting/picture/get_pic/" + file);
+            String ip = IPUtil.getIpAddress();
+            svgMessage.setSVGSrc(ip + ":8046/internally/piloting/picture/get_pic/" + file);
             panes.add(svgMessage);
         }
         HashMap map = new HashMap();
@@ -97,6 +99,7 @@ public class PictureController {
      * @param svg
      * @throws IOException
      */
+    @UserToken
     @RequestMapping("/get_pic/{svg}")
     public void getImage(HttpServletResponse response, @PathVariable("svg") String svg) throws IOException {
         response.setContentType("image/svg+xml;charset=utf-8");
