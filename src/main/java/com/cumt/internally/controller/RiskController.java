@@ -145,9 +145,9 @@ public class RiskController {
     }
 
     @AdministratorToken
-    @RequestMapping("/get_grade_by_staffDuty")
-    public Result getGradeByStaffDuty(@RequestParam String staffDuty) {
-        List<RiskMark> riskMarkList = riskMarkService.selectByStaffDuty(staffDuty);
+    @RequestMapping("/get_grade_by_staffPosition")
+    public Result getGradeByStaffDuty(@RequestParam String staffPosition) {
+        List<RiskMark> riskMarkList = riskMarkService.selectByStaffPosition(staffPosition);
         Collections.sort(riskMarkList);
         return responseData.write("获取成功", 200, riskMarkList);
     }

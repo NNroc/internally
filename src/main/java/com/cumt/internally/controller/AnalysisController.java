@@ -89,6 +89,15 @@ public class AnalysisController {
         Workbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("风险统计结果");
         sheet.setDefaultColumnWidth(9);
+        sheet.setColumnWidth(0, 10 * 256);
+        sheet.setColumnWidth(1, 20 * 256);
+        sheet.setColumnWidth(2, 20 * 256);
+        sheet.setColumnWidth(3, 20 * 256);
+        sheet.setColumnWidth(4, 20 * 256);
+        sheet.setColumnWidth(5, 10 * 256);
+        sheet.setColumnWidth(6, 10 * 256);
+        sheet.setColumnWidth(7, 10 * 256);
+        sheet.setColumnWidth(8, 10 * 256);
         Row row = null;
         Cell cell = null;
 
@@ -204,11 +213,14 @@ public class AnalysisController {
         Workbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("风险统计结果分析");
         sheet.setDefaultColumnWidth(4);
+        sheet.setColumnWidth(0, 10 * 256);
+        sheet.setColumnWidth(1, 10 * 256);
+        sheet.setColumnWidth(2, 20 * 256);
         Row row = null;
         Cell cell = null;
 
         // 第一行
-        CellRangeAddress region1 = new CellRangeAddress(0, 1, (short) 0, (short) 2);
+        CellRangeAddress region1 = new CellRangeAddress(0, 0, (short) 0, (short) 2);
         sheet.addMergedRegion(region1);
         row = sheet.createRow(0);
         cell = row.createCell(0);
@@ -255,7 +267,7 @@ public class AnalysisController {
         cell.setCellValue(1);
 
         // 第七行
-        CellRangeAddress region2 = new CellRangeAddress(0, 1, (short) 0, (short) 2);
+        CellRangeAddress region2 = new CellRangeAddress(6, 6, (short) 0, (short) 2);
         sheet.addMergedRegion(region2);
         row = sheet.createRow(6);
         cell = row.createCell(0);

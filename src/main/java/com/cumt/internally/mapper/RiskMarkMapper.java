@@ -52,10 +52,10 @@ public interface RiskMarkMapper {
 
     @Select({
             "select * from risk_mark, staff",
-            "where staffDuty = #{staffDuty,jdbcType=VARCHAR}",
+            "where staffPosition = #{staffPosition,jdbcType=VARCHAR}",
             "and staff.staffId = risk_mark.staffId",
     })
-    List<RiskMark> selectByStaffDuty(String staffDuty);
+    List<RiskMark> selectByStaffPosition(String staffPosition);
 
     @Select({
             "select * from risk_mark",
@@ -65,7 +65,7 @@ public interface RiskMarkMapper {
     RiskMark selectByStaffIdAndRiskControlId(String staffId, Integer riskControlId);
 
     @Select({
-            "select risk_mark.*, staff.staffName, staff.staffDuty from risk_mark, staff",
+            "select risk_mark.*, staff.staffName, staff.staffPosition from risk_mark, staff",
             "where staff.staffId = risk_mark.staffId"
     })
     List<RiskMark> selectAll();

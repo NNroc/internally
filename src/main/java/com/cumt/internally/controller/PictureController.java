@@ -5,16 +5,18 @@ import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.utils.FileUtil;
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,15 +38,17 @@ public class PictureController {
      */
     @AdministratorToken
     @RequestMapping("/send_pic")
-    public Result sendPic(MultipartFile svg, HttpServletRequest request) throws Exception {
+    public Result sendPic(MultipartFile svg) throws Exception {
         // 判断用户是否上传了文件
         if (!svg.isEmpty()) {
-            // 文件上传的地址
-//            String path = System.getProperty("user.dir");
-            String path = getJarRoot();
+            // 文件上传的地址;
+            String path = getJarRoot() + "\\svg";
             // 当前路径:G:\githubuse\internally\target
-            System.out.println("当前路径:" + path);
-            // 获取文件的名称，去掉后缀
+            System.out.println("当前路径:" + Paths.get(path));
+            if (!Files.exists(Paths.get(path))) {
+                Files.createDirectories(Paths.get(path));
+            }
+            // 获取文件的名称
             String fileName = svg.getOriginalFilename();
             System.out.println(fileName);
             // 限制文件上传的类型
@@ -53,6 +57,8 @@ public class PictureController {
                 // 完成文件的上传
                 FileUtil.uploadFile(svg.getBytes(), path, fileName);
                 return responseData.write("上传成功！", 200, new HashMap<>());
+            } else {
+                return responseData.write("文件非svg形式！", 400, new HashMap<>());
             }
         }
         return responseData.write("上传失败！", 404, new HashMap<>());
@@ -64,22 +70,30 @@ public class PictureController {
      * @return
      */
     @AdministratorToken
-    @RequestMapping("/get_pic")
-    public Result getPic(@RequestParam String svg) throws UnknownHostException {
-        // 判断用户是否上传了文件
-        if (!StringUtils.isBlank(svg)) {
-            if (!svg.endsWith(".svg")) {
-                return responseData.write("请求错误", 400, new HashMap<>());
-            }
-            // 返回 svg 文件路径
-            String url = InetAddress.getLocalHost() + ":8046/internally/piloting/picture/image/" + svg;
-            HashMap map = new HashMap();
-            map.put("svg", url);
-            return responseData.write("成功！", 200, map);
-        }
-        return responseData.write("未输入信息！", 400, new HashMap<>());
+    @RequestMapping("/get_all_pic")
+    public Result getPic() {
+        String path = getJarRoot() + "\\svg\\";
+        HashMap map = new HashMap();
+        return responseData.write("成功！", 200, map);
     }
 
+    /**
+     * 获取单个图片
+     *
+     * @param response
+     * @param svg
+     * @throws IOException
+     */
+    @RequestMapping("/get_pic/{svg}")
+    public void getImage(HttpServletResponse response, @PathVariable("svg") String svg) throws IOException {
+        response.setContentType("image/svg+xml;charset=utf-8");
+        response.setHeader("Content-Disposition", "inline; filename=" + svg);
+        ServletOutputStream outputStream = response.getOutputStream();
+        String path = getJarRoot() + "\\svg\\";
+        outputStream.write(Files.readAllBytes(Paths.get(path).resolve(svg)));
+        outputStream.flush();
+        outputStream.close();
+    }
 
     /**
      * 获得项目工程的绝对路径

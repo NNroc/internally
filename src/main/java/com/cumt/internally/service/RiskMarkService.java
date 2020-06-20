@@ -38,8 +38,8 @@ public class RiskMarkService {
         return riskMarkMapper.selectByRiskControlId(riskControlId);
     }
 
-    public List<RiskMark> selectByStaffDuty(String staffDuty) {
-        return riskMarkMapper.selectByStaffDuty(staffDuty);
+    public List<RiskMark> selectByStaffPosition(String staffPosition) {
+        return riskMarkMapper.selectByStaffPosition(staffPosition);
     }
 
     /**
