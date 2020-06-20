@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletOutputStream;
@@ -80,11 +81,12 @@ public class PictureController {
         String path = getJarRoot() + "/svg/";
         List<String> files = getFileName(path, ".svg", false);
         List<SvgMessage> panes = new ArrayList<>();
+        Collections.sort(panes);
         for (String file : files) {
             SvgMessage svgMessage = new SvgMessage();
             svgMessage.setTitle(file);
             String ip = IPUtil.getIpAddress();
-            svgMessage.setSVGSrc(ip + ":8046/internally/piloting/picture/get_pic/" + file);
+            svgMessage.setSVGSrc("http://" + ip + ":8046/internally/piloting/picture/get_pic/" + file);
             panes.add(svgMessage);
         }
         HashMap map = new HashMap();
