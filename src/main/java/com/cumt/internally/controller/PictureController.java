@@ -99,7 +99,7 @@ public class PictureController {
      * @param svg
      * @throws IOException
      */
-    @UserToken
+//    @UserToken
     @RequestMapping("/get_pic/{svg}")
     public void getImage(HttpServletResponse response, @PathVariable("svg") String svg) throws IOException {
         response.setContentType("image/svg+xml;charset=utf-8");
