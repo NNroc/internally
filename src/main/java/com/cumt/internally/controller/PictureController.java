@@ -47,15 +47,13 @@ public class PictureController {
         // 判断用户是否上传了文件
         if (!svg.isEmpty()) {
             // 文件上传的地址;
-            String path = getJarRoot() + "\\svg";
+            String path = getJarRoot() + "/svg/";
             // 当前路径:G:\githubuse\internally\target
-//            System.out.println("当前路径:" + Paths.get(path));
             if (!Files.exists(Paths.get(path))) {
                 Files.createDirectories(Paths.get(path));
             }
             // 获取文件的名称
             String fileName = svg.getOriginalFilename();
-//            System.out.println(fileName);
             // 限制文件上传的类型
             String contentType = svg.getContentType();
             if ("image/svg+xml".equals(contentType)) {
@@ -78,7 +76,7 @@ public class PictureController {
     @RequestMapping("/get_all_pic")
     public Result getPic() throws UnknownHostException {
         // 指定路径
-        String path = getJarRoot() + "\\svg\\";
+        String path = getJarRoot() + "/svg/";
         List<String> files = getFileName(path, ".svg", false);
         List<SvgMessage> panes = new ArrayList<>();
         for (String file : files) {
@@ -104,7 +102,7 @@ public class PictureController {
         response.setContentType("image/svg+xml;charset=utf-8");
         response.setHeader("Content-Disposition", "inline; filename=" + svg);
         ServletOutputStream outputStream = response.getOutputStream();
-        String path = getJarRoot() + "\\svg\\";
+        String path = getJarRoot() + "/svg/";
         outputStream.write(Files.readAllBytes(Paths.get(path).resolve(svg)));
         outputStream.flush();
         outputStream.close();
