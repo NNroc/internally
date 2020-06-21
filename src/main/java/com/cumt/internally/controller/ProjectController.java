@@ -26,7 +26,8 @@ public class ProjectController {
 
     /**
      * 获取流程说明，单个说明
-     *
+     * @param type 流程图名
+     * @param num 序号
      * @return
      */
     @UserToken

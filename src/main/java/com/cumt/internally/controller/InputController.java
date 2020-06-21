@@ -1,11 +1,15 @@
 package com.cumt.internally.controller;
 
+import com.cumt.internally.annotation.PassToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Project;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.RiskControl;
 import com.cumt.internally.service.ProjectService;
 import com.cumt.internally.service.RiskControlService;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,14 +19,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.InputStream;
-import java.util.Date;
-import java.util.HashMap;
 
 /**
  * @author NNroc
@@ -187,14 +188,14 @@ public class InputController {
 
     /**
      * 流程图信息导入
-     * 无需求，暂不启用·
+     * 无需求，暂不启用
      *
      * @param file
      * @return
      * @throws Exception
      */
-//    @PassToken
-//    @PostMapping("/import/flow_sheet")
+    @PassToken
+    @PostMapping("/import/flow_sheet")
     public Result readExcelFlowSheet(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
@@ -247,6 +248,7 @@ public class InputController {
 //                project.setType(fileName);
                 cell = row.getCell(2);
                 project.setDepartment(cell.toString());
+                // 只合并了 主责部门/岗位
                 while ((rowIndex + 1) <= lastRowIndex &&
                         StringUtils.isBlank(sheet.getRow(rowIndex + 1).getCell(0).toString()) &&
                         !StringUtils.isBlank(sheet.getRow(rowIndex + 1).getCell(2).toString())) {
