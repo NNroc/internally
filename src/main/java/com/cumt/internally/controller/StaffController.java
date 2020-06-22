@@ -8,18 +8,17 @@ import com.cumt.internally.model.Staff;
 import com.cumt.internally.service.StaffService;
 import com.cumt.internally.utils.JwtUtil;
 import com.cumt.internally.utils.MD5Util;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author NNroc
@@ -170,9 +169,13 @@ public class StaffController {
             if (num < 0 || size < 0) {
                 return responseData.write("传参错误", 400, new HashMap<>());
             }
-            List<Staff> staffs = staffService.selectAll(num, size);
+            List<Staff> staffs = staffService.selectAllByPageNumAndPageSize(num, size);
+            int sum = staffService.selectAll().size();
+            HashMap map = new HashMap();
+            map.put("staffs", staffs);
+            map.put("staffSum", sum);
             if (staffs.size() != 0) {
-                return responseData.write("成功", 200, staffs);
+                return responseData.write("成功", 200, map);
             } else {
                 return responseData.write("本页没有人员", 400, new HashMap<>());
             }

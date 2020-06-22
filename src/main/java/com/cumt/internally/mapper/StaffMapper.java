@@ -46,10 +46,15 @@ public interface StaffMapper {
     List<Staff> selectByStaffName(String staffName);
 
     @Select({
+            "select * from staff"
+    })
+    List<Staff> selectAll();
+
+    @Select({
             "select * from staff order by createTime asc",
             "limit #{pageStart,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}"
     })
-    List<Staff> selectAll(int pageStart, int pageSize);
+    List<Staff> selectAllByPageNumAndPageSize(int pageStart, int pageSize);
 
     @Update({
             "update staff",

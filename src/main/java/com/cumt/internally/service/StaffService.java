@@ -70,12 +70,21 @@ public class StaffService {
     }
 
     /**
+     * 查找所有人
+     *
+     * @return
+     */
+    public List<Staff> selectAll() {
+        return staffMapper.selectAll();
+    }
+
+    /**
      * 按页查找所有人
      *
      * @return
      */
-    public List<Staff> selectAll(int pageNum, int pageSize) {
-        return staffMapper.selectAll((pageNum - 1) * pageSize, pageSize);
+    public List<Staff> selectAllByPageNumAndPageSize(int pageNum, int pageSize) {
+        return staffMapper.selectAllByPageNumAndPageSize((pageNum - 1) * pageSize, pageSize);
     }
 
     /**

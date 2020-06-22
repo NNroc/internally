@@ -5,8 +5,6 @@ import com.cumt.internally.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author NNroc
  * @date 2020/5/13 17:59

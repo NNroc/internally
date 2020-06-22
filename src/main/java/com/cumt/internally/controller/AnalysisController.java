@@ -5,6 +5,7 @@ import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.RiskControl;
 import com.cumt.internally.model.RiskMark;
+import com.cumt.internally.service.PositionService;
 import com.cumt.internally.service.RiskControlService;
 import com.cumt.internally.service.RiskMarkService;
 import com.cumt.internally.service.StaffService;
@@ -38,9 +39,11 @@ public class AnalysisController {
     RiskControlService riskControlService;
     @Autowired
     StaffService staffService;
+    @Autowired
+    PositionService positionService;
 
     /**
-     * // TODO 风险统计结果（列举所有风险，排序？得分高到低），excel
+     * 风险统计结果（列举所有风险，得分高到低），excel
      *
      * @return
      */
@@ -154,17 +157,8 @@ public class AnalysisController {
     }
 
     /**
-     * // TODO 风险统计结果分析，排序（计算方式？等级？随便设），excel
+     * 风险统计结果分析，排序，excel
      * 风险等级	风险个数 所占比例
-     * <p>
-     * 职位：staffPosition
-     * 副科级       0.5
-     * 科级         2.5
-     * 副处级       3.5
-     * 处级         4.5
-     * 校领导       5
-     * 科员         3
-     * 技术专家     10
      *
      * @return
      */
@@ -287,19 +281,19 @@ public class AnalysisController {
 
     public double getWeight(String staffPosition) {
         if (staffPosition.equals("副科级")) {
-            return 0.5;
+            return positionService.selectByPosition("副科级").getWeight();
         } else if (staffPosition.equals("科级")) {
-            return 2.5;
+            return positionService.selectByPosition("科级").getWeight();
         } else if (staffPosition.equals("副处级")) {
-            return 4.5;
+            return positionService.selectByPosition("副处级").getWeight();
         } else if (staffPosition.equals("处级")) {
-            return 3.5;
+            return positionService.selectByPosition("处级").getWeight();
         } else if (staffPosition.equals("校领导")) {
-            return 5;
+            return positionService.selectByPosition("校领导").getWeight();
         } else if (staffPosition.equals("科员")) {
-            return 3;
+            return positionService.selectByPosition("科员").getWeight();
         } else if (staffPosition.equals("技术专家")) {
-            return 10;
+            return positionService.selectByPosition("技术专家").getWeight();
         } else {
             return -1;
         }
