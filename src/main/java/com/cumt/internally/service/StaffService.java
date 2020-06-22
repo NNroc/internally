@@ -61,7 +61,7 @@ public class StaffService {
     public List<Staff> selectByStaffIdOrStaffName(String message) {
         List<Staff> staffs = new ArrayList<>();
         Staff staff = staffMapper.selectByStaffId(message);
-        if (staff.getStaffId().equals("")) {
+        if (staff == null) {
             staffs = staffMapper.selectByStaffName(message);
         } else {
             staffs.add(staff);

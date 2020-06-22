@@ -44,7 +44,7 @@ public class StaffController {
     public Result login(Staff staff, BindingResult errors) {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
-            return responseData.write(errors.getAllErrors().toString(), 404, list);
+            return responseData.write(errors.getAllErrors().toString(), 400, list);
         }
         HashMap map = new HashMap();
         Staff staffChoose = staffService.selectByStaffId(staff.getStaffId());
@@ -74,7 +74,7 @@ public class StaffController {
     public Result add(@Valid Staff staff, BindingResult errors) {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
-            return responseData.write(errors.getAllErrors().toString(), 404, list);
+            return responseData.write(errors.getAllErrors().toString(), 400, list);
         }
         if (staffService.selectByStaffId(staff.getStaffId()) != null) {
             return responseData.write("用户名重复", 400, new HashMap<>());
@@ -138,7 +138,7 @@ public class StaffController {
     }
 
     /**
-     * 按id，姓名查找单个人员,select
+     * 按id，姓名查找单个人员，select
      *
      * @return
      */
@@ -150,7 +150,7 @@ public class StaffController {
         if (staffs.size() != 0) {
             return responseData.write("成功", 200, staffs);
         } else {
-            return responseData.write("未找到该人员", 400, new HashMap<>());
+            return responseData.write("未找到人员", 400, new HashMap<>());
         }
     }
 
