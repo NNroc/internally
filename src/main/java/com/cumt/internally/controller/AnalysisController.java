@@ -4,9 +4,11 @@ import com.cumt.internally.annotation.AdministratorToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.RiskControl;
+import com.cumt.internally.model.RiskLevel;
 import com.cumt.internally.model.RiskMark;
 import com.cumt.internally.service.PositionService;
 import com.cumt.internally.service.RiskControlService;
+import com.cumt.internally.service.RiskLevelService;
 import com.cumt.internally.service.RiskMarkService;
 import com.cumt.internally.service.StaffService;
 import java.io.IOException;
@@ -41,6 +43,8 @@ public class AnalysisController {
     StaffService staffService;
     @Autowired
     PositionService positionService;
+    @Autowired
+    RiskLevelService riskLevelService;
 
     /**
      * 风险统计结果（列举所有风险，得分高到低），excel
@@ -73,10 +77,10 @@ public class AnalysisController {
                 riskControl.setEffectGrade(riskControl.getEffectGrade() / riskControl.getNum());
             }
             riskControl.setSumGrade(riskControl.getPossibleGrade() + riskControl.getEffectGrade());
-            // TODO 风险等级
-            if (riskControl.getSumGrade() < 5) {
+            RiskLevel riskLevel = riskLevelService.select();
+            if (riskControl.getSumGrade() < riskLevel.getLow()) {
                 riskControl.setRiskLevel("低风险");
-            } else if (riskControl.getSumGrade() < 10) {
+            } else if (riskControl.getSumGrade() < riskLevel.getMedium()) {
                 riskControl.setRiskLevel("中风险");
             } else {
                 riskControl.setRiskLevel("高风险");
@@ -189,11 +193,11 @@ public class AnalysisController {
                 riskControl.setEffectGrade(riskControl.getEffectGrade() / riskControl.getNum());
             }
             riskControl.setSumGrade(riskControl.getPossibleGrade() + riskControl.getEffectGrade());
-            // TODO 风险等级
-            if (riskControl.getSumGrade() < 5) {
+            RiskLevel riskLevel = riskLevelService.select();
+            if (riskControl.getSumGrade() < riskLevel.getLow()) {
                 riskControl.setRiskLevel("低风险");
                 low++;
-            } else if (riskControl.getSumGrade() < 10) {
+            } else if (riskControl.getSumGrade() < riskLevel.getMedium()) {
                 riskControl.setRiskLevel("中风险");
                 medium++;
             } else {

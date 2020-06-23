@@ -1,5 +1,6 @@
 package com.cumt.internally.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,6 +38,10 @@ public class RiskLevel implements Common {
 
     @Override
     public Map toDict() {
-        return null;
+        HashMap map = new HashMap();
+        map.put("high", high);
+        map.put("medium", medium);
+        map.put("low", low);
+        return map;
     }
 }

@@ -18,7 +18,7 @@ public class RiskLevelService {
         return riskLevelMapper.select();
     }
 
-    public void updateGrade(RiskLevel riskLevel) {
-        riskLevelMapper.updateGrade(riskLevel);
+    public int updateGrade(RiskLevel riskLevel) {
+        return riskLevelMapper.updateGrade(riskLevel);
     }
 }

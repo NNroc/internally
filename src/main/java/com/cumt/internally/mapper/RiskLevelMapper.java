@@ -1,8 +1,11 @@
 package com.cumt.internally.mapper;
 
 import com.cumt.internally.model.RiskLevel;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.type.JdbcType;
 
 /**
  * @author NNroc
@@ -12,7 +15,13 @@ public interface RiskLevelMapper {
     @Select({
             "select * from risk_level"
     })
+    @Results(value = {
+            @Result(column = "highGrade", property = "high", jdbcType = JdbcType.DOUBLE),
+            @Result(column = "mediumGrade", property = "medium", jdbcType = JdbcType.DOUBLE),
+            @Result(column = "lowGrade", property = "low", jdbcType = JdbcType.DOUBLE)
+    })
     RiskLevel select();
+
 
     @Update({
             "update risk_level",
