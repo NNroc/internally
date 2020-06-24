@@ -20,7 +20,7 @@ public class Staff implements Common {
     private String staffName; // 姓名
     private String staffUnit; // 单位
     private String staffPosition; // 职位
-    private String staffDuty; // 职务
+    private String staffDuty; // 职责，备注
     private String staffProfessional; // 职称
     private double staffWeight; // 权重
     private String staffPwd; // 密码

@@ -39,6 +39,8 @@ public class StaffService {
      * @return
      */
     public int insert(Staff staff) {
+        staff.setCreateTime(new Date());
+        staff.setUpdateTime(new Date());
         return staffMapper.insert(staff);
     }
 

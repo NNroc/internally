@@ -8,7 +8,6 @@ import com.cumt.internally.model.Staff;
 import com.cumt.internally.service.StaffService;
 import com.cumt.internally.utils.JwtUtil;
 import com.cumt.internally.utils.MD5Util;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -80,8 +79,6 @@ public class StaffController {
             return responseData.write("用户名重复", 400, new HashMap<>());
         }
         staff.setStaffPwd(MD5Util.md5(staff.getStaffId()));
-        staff.setCreateTime(new Date());
-        staff.setUpdateTime(new Date());
         if (staffService.insert(staff) == 1) {
             return responseData.write("添加成功", 200, new HashMap<>());
         } else {

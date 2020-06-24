@@ -72,8 +72,6 @@ public class InputController {
         int firstRowIndex = sheet.getFirstRowNum();
         //获取最后一行
         int lastRowIndex = sheet.getLastRowNum();
-        // 删除同名类别的（覆盖）
-        projectService.deleteByType(fileName);
         // 用于记录之前的实体信息
         RiskControl use = new RiskControl();
         //第一行普遍是标题
