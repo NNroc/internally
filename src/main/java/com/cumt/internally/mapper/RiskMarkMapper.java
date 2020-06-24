@@ -72,15 +72,13 @@ public interface RiskMarkMapper {
 
     @Update({
             "update risk_mark",
-            "set staffId = #{staffId,jdbcType=VARCHAR},",
-            "riskControlId = #{riskControlId,jdbcType=VARCHAR},",
-            "possibleGrade = #{possibleGrade,jdbcType=DOUBLE},",
+            "set possibleGrade = #{possibleGrade,jdbcType=DOUBLE},",
             "effectGrade = #{effectGrade,jdbcType=DOUBLE},",
-            "createTime = #{createTime,jdbcType=TIMESTAMP},",
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
-            "where staffId = #{staffId,jdbcType=VARCHAR}"
+            "where staffId = #{staffId,jdbcType=VARCHAR}",
+            "and riskControlId = #{riskControlId,jdbcType=VARCHAR}"
     })
-    int updateByStaffId(RiskMark riskMark);
+    int updateByStaffIdAndRiskControlId(RiskMark riskMark);
 
     @Update("truncate table risk_mark")
     void clear();

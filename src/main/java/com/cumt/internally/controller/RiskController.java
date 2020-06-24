@@ -10,19 +10,17 @@ import com.cumt.internally.model.Staff;
 import com.cumt.internally.service.RiskControlService;
 import com.cumt.internally.service.RiskMarkService;
 import com.cumt.internally.service.StaffService;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author NNroc
@@ -88,23 +86,39 @@ public class RiskController {
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
         riskMark.setStaffId(staff.getStaffId());
-        riskMark.setCreateTime(new Date());
-        riskMark.setUpdateTime(new Date());
-        if (checkIdExist(riskMark)) {
+        if (checkIdExist(riskMark) == 1) {
             riskMarkService.insert(riskMark);
             return responseData.write("评分成功", 200, new HashMap<>());
+        } else if (checkIdExist(riskMark) == 0) {
+            if (riskMarkService.update(riskMark) == 1) {
+                return responseData.write("修改评分成功", 200, new HashMap<>());
+            } else {
+                return responseData.write("修改失败", 400, new HashMap<>());
+            }
         } else {
-            return responseData.write("id不存在或已经评估过分", 400, new HashMap<>());
+            return responseData.write("id不存在", 400, new HashMap<>());
         }
     }
 
-    private boolean checkIdExist(RiskMark riskMark) {
+    /**
+     * 查看是否评论过
+     * 1：直接插入
+     * 0：更新
+     * -1：不存在
+     *
+     * @param riskMark
+     * @return
+     */
+    private int checkIdExist(RiskMark riskMark) {
         if (staffService.selectByStaffId(riskMark.getStaffId()) != null &&
-                riskControlService.selectById(riskMark.getRiskControlId()) != null &&
-                riskMarkService.selectByStaffIdAndRiskControlId(riskMark.getStaffId(), riskMark.getRiskControlId()) == null) {
-            return true;
+                riskControlService.selectById(riskMark.getRiskControlId()) != null) {
+            if (riskMarkService.selectByStaffIdAndRiskControlId(riskMark.getStaffId(), riskMark.getRiskControlId()) == null) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
-            return false;
+            return -1;
         }
     }
 

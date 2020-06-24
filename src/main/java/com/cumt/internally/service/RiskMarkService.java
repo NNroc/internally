@@ -2,6 +2,7 @@ package com.cumt.internally.service;
 
 import com.cumt.internally.mapper.RiskMarkMapper;
 import com.cumt.internally.model.RiskMark;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,14 @@ public class RiskMarkService {
      * @return
      */
     public int insert(RiskMark riskMark) {
+        riskMark.setCreateTime(new Date());
+        riskMark.setUpdateTime(new Date());
         return riskMarkMapper.insert(riskMark);
+    }
+
+    public int update(RiskMark riskMark){
+        riskMark.setUpdateTime(new Date());
+        return riskMarkMapper.updateByStaffIdAndRiskControlId(riskMark);
     }
 
     public List<RiskMark> selectByStaffId(String staffId) {
