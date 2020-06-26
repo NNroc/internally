@@ -1,6 +1,5 @@
 package com.cumt.internally.controller;
 
-import com.cumt.internally.annotation.AdministratorToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Result;
 import com.cumt.internally.model.RiskControl;
@@ -51,7 +50,6 @@ public class AnalysisController {
      *
      * @return
      */
-    @AdministratorToken
     @RequestMapping("/get_all_risk")
     public Result getResult(HttpServletResponse response) throws Exception {
         List<RiskMark> riskMarks = riskMarkService.selectAll();
@@ -166,7 +164,6 @@ public class AnalysisController {
      *
      * @return
      */
-    @AdministratorToken
     @RequestMapping("/get_result")
     public Result getAnalyse(HttpServletResponse response) throws IOException {
         int low = 0, medium = 0, high = 0;
