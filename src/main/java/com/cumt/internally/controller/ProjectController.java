@@ -25,18 +25,20 @@ public class ProjectController {
     ProjectService projectService;
 
     /**
+     * /// TODO 添加管理员修改流程说明
      * 获取流程说明，单个说明
+     *
      * @param type 流程图名
-     * @param num 序号
+     * @param num  序号
      * @return
      */
     @UserToken
     @RequestMapping("/get_project")
     public Result getProject(@RequestParam String type, @RequestParam int num) {
         Project project = projectService.selectByType(type, num);
-        if(project!=null){
+        if (project != null) {
             return responseData.write(type, 200, project.toDict());
-        }else {
+        } else {
             return responseData.write("未找到", 400, new HashMap<>());
         }
     }

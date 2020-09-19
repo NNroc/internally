@@ -71,6 +71,8 @@ public class RiskController {
         return responseData.write("员工权值存在问题！", 444, new HashMap<>());
     }
 
+    /// TODO 管理员审核员工的并同意更新，删除。
+
     /**
      * 个人评分
      *
