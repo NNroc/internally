@@ -38,16 +38,15 @@ public interface ProjectMapper {
 
     @Update({
             "update project",
-            "set type = #{type,jdbcType=VARCHAR},",
-            "num = #{num,jdbcType=INTEGER},",
-            "stepName = #{stepName,jdbcType=VARCHAR},",
+            "set stepName = #{stepName,jdbcType=VARCHAR},",
             "department = #{department,jdbcType=VARCHAR},",
             "controlId = #{controlId,jdbcType=VARCHAR},",
             "stepDescribe = #{stepDescribe,jdbcType=VARCHAR},",
             "document = #{document,jdbcType=VARCHAR},",
             "createTime = #{createTime,jdbcType=TIMESTAMP},",
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
-            "where id = #{id,jdbcType=INTEGER}"
+            "where type = #{type,jdbcType=VARCHAR}",
+            "and num = #{num,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(Project record);
+    int updateByType(Project record, String type, int num);
 }

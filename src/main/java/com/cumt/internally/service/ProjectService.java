@@ -34,8 +34,16 @@ public class ProjectService {
 
     /**
      * 根据type查找表格
+     *
+     * @param type
+     * @param num
+     * @return
      */
-    public Project selectByType(String type,int num) {
-        return projectMapper.selectByType(type,num);
+    public Project selectByType(String type, int num) {
+        return projectMapper.selectByType(type, num);
+    }
+
+    public void updateByType(Project record, String type, int num) {
+        projectMapper.updateByType(record, type, num);
     }
 }

@@ -3,6 +3,7 @@ package com.cumt.internally.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author NNroc
@@ -10,7 +11,9 @@ import java.util.Map;
  */
 public class Project implements Common {
     private Integer id;
+    @NotBlank(message = "表名不能为空")
     private String type; //表名
+    @NotBlank(message = "编号不能为空")
     private Integer num; //编号
     private String stepName; //步骤名称
     private String department; //主管部门/岗位
