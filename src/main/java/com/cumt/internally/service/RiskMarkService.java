@@ -29,7 +29,7 @@ public class RiskMarkService {
         return riskMarkMapper.insert(riskMark);
     }
 
-    public int update(RiskMark riskMark){
+    public int update(RiskMark riskMark) {
         riskMark.setUpdateTime(new Date());
         return riskMarkMapper.updateByStaffIdAndRiskControlId(riskMark);
     }
@@ -68,6 +68,15 @@ public class RiskMarkService {
      */
     public List<RiskMark> selectAll() {
         return riskMarkMapper.selectAll();
+    }
+
+    /**
+     * 按年份查找评分
+     *
+     * @return
+     */
+    public List<RiskMark> selectByYear(int year) {
+        return riskMarkMapper.selectByYear(year);
     }
 
     /**

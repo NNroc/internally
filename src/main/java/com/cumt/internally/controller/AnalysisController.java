@@ -23,6 +23,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -46,14 +47,20 @@ public class AnalysisController {
     RiskLevelService riskLevelService;
 
     /**
-     * /// TODO 需加入年份筛选
+     * /// todo 需加入年份筛选
      * 风险统计结果（列举所有风险，得分高到低），excel
      *
+     * @param response
+     * @param year     4位年份
      * @return
+     * @throws Exception
      */
     @RequestMapping("/get_all_risk")
-    public Result getResult(HttpServletResponse response) throws Exception {
-        List<RiskMark> riskMarks = riskMarkService.selectAll();
+    public Result getResult(HttpServletResponse response, @RequestParam int year) throws Exception {
+        if (year < 1000 || year > 9999) {
+            return responseData.write("年份错误", 400, new HashMap<>());
+        }
+        List<RiskMark> riskMarks = riskMarkService.selectByYear(year);
         // 装入 RiskControl 实体
         List<RiskControl> riskControlList = riskControlService.selectAll();
         for (RiskMark riskMark : riskMarks) {
@@ -160,16 +167,19 @@ public class AnalysisController {
     }
 
     /**
-     * /// TODO 需加入年份筛选
+     * /// todo 需加入年份筛选
      * 风险统计结果分析，排序，excel
      * 风险等级	风险个数 所占比例
      *
+     * @param response
+     * @param year     4位年份
      * @return
+     * @throws IOException
      */
     @RequestMapping("/get_result")
-    public Result getAnalyse(HttpServletResponse response) throws IOException {
+    public Result getAnalyse(HttpServletResponse response, @RequestParam int year) throws IOException {
         int low = 0, medium = 0, high = 0;
-        List<RiskMark> riskMarks = riskMarkService.selectAll();
+        List<RiskMark> riskMarks = riskMarkService.selectByYear(year);
         // 装入 RiskControl 实体
         List<RiskControl> riskControlList = riskControlService.selectAll();
         for (RiskMark riskMark : riskMarks) {

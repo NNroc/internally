@@ -50,7 +50,7 @@ public class RiskController {
     }
 
     /**
-     * 个人修改+token(根据token权限修改or存储)
+     * 个人修改 + token(根据token权限修改or存储)
      *
      * @return
      */
@@ -72,6 +72,8 @@ public class RiskController {
     }
 
     /// TODO 管理员审核员工的并同意更新，删除。
+    // 删除：从risk_post中删除
+    // 更新：先更新risk_control再从risk_post中删除
 
     /**
      * 个人评分

@@ -70,6 +70,12 @@ public interface RiskMarkMapper {
     })
     List<RiskMark> selectAll();
 
+    @Select({
+            "select risk_mark.*, staff.staffName, staff.staffPosition from risk_mark, staff",
+            "where staff.staffId = risk_mark.staffId and YEAR(risk_mark.updateTime) = #{year,jdbcType=INTEGER}"
+    })
+    List<RiskMark> selectByYear(int year);
+
     @Update({
             "update risk_mark",
             "set possibleGrade = #{possibleGrade,jdbcType=DOUBLE},",
