@@ -24,15 +24,23 @@ public class RiskControlService {
         riskControlMapper.insertRiskPost(riskControl);
     }
 
-    public RiskControl selectById(Integer id){
+    public List<RiskControl> selectRiskPost() {
+        return riskControlMapper.selectRiskPost();
+    }
+
+    public RiskControl selectById(Integer id) {
         return riskControlMapper.selectById(id);
     }
 
-    public List<RiskControl> selectAll(){
+    public List<RiskControl> selectAll() {
         return riskControlMapper.selectAll();
     }
 
-    public int update(RiskControl riskControl){
+    public int update(RiskControl riskControl) {
         return riskControlMapper.updateByPrimaryKey(riskControl);
+    }
+
+    public int deleteInRiskPostById(int postId){
+        return riskControlMapper.deleteInRiskPostById(postId);
     }
 }

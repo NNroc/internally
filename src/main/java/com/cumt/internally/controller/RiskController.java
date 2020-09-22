@@ -50,32 +50,6 @@ public class RiskController {
     }
 
     /**
-     * 个人修改 + token(根据token权限修改or存储)
-     *
-     * @return
-     */
-    @UserToken
-    @RequestMapping("send_modify")
-    public Result sendModify(@Valid RiskControl riskControl, HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("token");
-        Staff staff = staffService.getStaffFromToken(token);
-        if (staff.getStaffWeight() == 1.0) {
-            // 数据库写入
-            riskControlService.insertRiskPost(riskControl);
-            return responseData.write("提交成功", 200, new HashMap<>());
-        } else if (staff.getStaffWeight() == 4.0) {
-            // 数据库修改
-            riskControlService.update(riskControl);
-            return responseData.write("修改成功", 200, new HashMap<>());
-        }
-        return responseData.write("员工权值存在问题！", 444, new HashMap<>());
-    }
-
-    /// TODO 管理员审核员工的并同意更新，删除。
-    // 删除：从risk_post中删除
-    // 更新：先更新risk_control再从risk_post中删除
-
-    /**
      * 个人评分
      *
      * @return
@@ -171,7 +145,6 @@ public class RiskController {
         return responseData.write("获取成功", 200, riskMarkList);
     }
 
-
     /**
      * 清空风险评分
      *
@@ -182,6 +155,81 @@ public class RiskController {
     public Result clearRisk() {
         riskMarkService.clear();
         return responseData.write("清空成功", 200, new HashMap<>());
+    }
+
+
+    /**
+     * /// TODO 修改project而不是risk_control
+     * 个人修改 + token(根据token权限修改or存储)
+     *
+     * @return
+     */
+    @UserToken
+    @RequestMapping("/send_modify")
+    public Result sendModify(@Valid RiskControl riskControl, HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("token");
+        Staff staff = staffService.getStaffFromToken(token);
+        if (staff.getStaffWeight() == 1.0) {
+            // 数据库写入
+            riskControlService.insertRiskPost(riskControl);
+            return responseData.write("提交成功", 200, new HashMap<>());
+        } else if (staff.getStaffWeight() == 4.0) {
+            // 数据库修改
+            riskControlService.update(riskControl);
+            return responseData.write("修改成功", 200, new HashMap<>());
+        }
+        return responseData.write("员工权值存在问题！", 444, new HashMap<>());
+    }
+
+
+    /**
+     * /// todo
+     * 查找职工提交的数据
+     *
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/select_risk_post")
+    public Result selectRiskPost() {
+        List<RiskControl> riskPost = riskControlService.selectRiskPost();
+        if (riskPost != null) {
+            return responseData.write("查找成功", 200, riskPost);
+        } else {
+            return responseData.write("没有数据", 200, new HashMap<>());
+        }
+    }
+
+    // 更新：先更新risk_control再从risk_post中删除
+    // 删除：从risk_post中删除
+
+    /**
+     * todo 管理员审核员工的并同意更新，删除。
+     *
+     * @param riskControl
+     * @param choose      1 更新 0 删除
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/approve_risk_post")
+    public Result approveRiskPost(@Valid RiskControl riskControl, @RequestParam int choose) {
+        RiskControl use = riskControlService.selectById(riskControl.getId());
+        if (use == null) {
+            return responseData.write("未找到原信息", 404, new HashMap<>());
+        }
+        if (choose == 1) {
+            if (riskControlService.update(riskControl) == 1) {
+                riskControlService.deleteInRiskPostById(riskControl.getPostId());
+                return responseData.write("更新成功", 200, new HashMap<>());
+            } else {
+                return responseData.write("更新失败", 400, new HashMap<>());
+            }
+        } else {
+            if (riskControlService.deleteInRiskPostById(riskControl.getPostId()) == 1) {
+                return responseData.write("删除成功", 201, new HashMap<>());
+            } else {
+                return responseData.write("删除失败", 401, new HashMap<>());
+            }
+        }
     }
 
 }

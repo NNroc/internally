@@ -3,24 +3,39 @@ package com.cumt.internally.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author NNroc
  * @date 2020/5/12 13:13
  */
 public class RiskControl implements Common, Comparable<RiskControl> {
+    private Integer postId; // 在 risk_post 中的主键
+    @NotNull(message = "id不能为空")
     private Integer id;
+    @NotNull(message = "流程总名称不能为空")
     private String mainName; // 流程总名称
+    @NotNull(message = "业务流程不能为空")
     private String processName; // 业务流程，display1
+    @NotNull(message = "流程节点不能为空")
     private String processPoint; // 流程节点，display2
+    @NotNull(message = "风险编号不能为空")
     private String riskId; // 风险编号，display3
+    @NotNull(message = "风险描述不能为空")
     private String riskDescribe; // 风险描述，display4
+    @NotNull(message = "控制目标不能为空")
     private String controlObjectives; // 控制目标
+    @NotNull(message = "控制编号不能为空")
     private String controlId; // 控制编号
+    @NotNull(message = "控制步骤名称不能为空")
     private String controlName; // 控制步骤名称
+    @NotNull(message = "控制措施不能为空")
     private String controlMeasures; // 控制措施
+    @NotNull(message = "责任岗位不能为空")
     private String responsiblePosition; // 责任岗位
+    @NotNull(message = "对应制度不能为空")
     private String correspondingSystem; // 对应制度
+    @NotNull(message = "实施证据不能为空")
     private String evidence; // 实施证据
     private Date createTime; // 创建时间
     private Date updateTime; // 更新时间
@@ -198,6 +213,14 @@ public class RiskControl implements Common, Comparable<RiskControl> {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     @Override

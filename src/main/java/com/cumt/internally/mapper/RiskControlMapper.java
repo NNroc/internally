@@ -1,6 +1,7 @@
 package com.cumt.internally.mapper;
 
 import com.cumt.internally.model.RiskControl;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -21,7 +22,7 @@ public interface RiskControlMapper {
             "evidence, createTime,",
             "updateTime)",
             "values (#{mainName,jdbcType=VARCHAR}, #{processName,jdbcType=VARCHAR},",
-            "#{processPoint,jdbcType=VARCHAR}, #{riskId,jdbcType=INTEGER}, #{riskDescribe,jdbcType=VARCHAR},",
+            "#{processPoint,jdbcType=VARCHAR}, #{riskId,jdbcType=VARCHAR}, #{riskDescribe,jdbcType=VARCHAR},",
             "#{controlObjectives,jdbcType=VARCHAR}, #{controlId,jdbcType=VARCHAR},",
             "#{controlName,jdbcType=VARCHAR}, #{controlMeasures,jdbcType=VARCHAR},",
             "#{responsiblePosition,jdbcType=VARCHAR}, #{correspondingSystem,jdbcType=VARCHAR},",
@@ -29,24 +30,6 @@ public interface RiskControlMapper {
             "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(RiskControl riskControl);
-
-    @Insert({
-            "insert into risk_post (mainName, processName,",
-            "processPoint, riskId, riskDescribe,",
-            "controlObjectives, controlId,",
-            "controlName, controlMeasures,",
-            "responsiblePosition, correspondingSystem,",
-            "evidence, createTime,",
-            "updateTime)",
-            "values (#{mainName,jdbcType=VARCHAR}, #{processName,jdbcType=VARCHAR},",
-            "#{processPoint,jdbcType=VARCHAR}, #{riskId,jdbcType=INTEGER}, #{riskDescribe,jdbcType=VARCHAR},",
-            "#{controlObjectives,jdbcType=VARCHAR}, #{controlId,jdbcType=VARCHAR},",
-            "#{controlName,jdbcType=VARCHAR}, #{controlMeasures,jdbcType=VARCHAR},",
-            "#{responsiblePosition,jdbcType=VARCHAR}, #{correspondingSystem,jdbcType=VARCHAR},",
-            "#{evidence,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
-            "#{updateTime,jdbcType=TIMESTAMP})"
-    })
-    int insertRiskPost(RiskControl riskControl);
 
     @Select({
             "select * from risk_control",
@@ -78,4 +61,33 @@ public interface RiskControlMapper {
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(RiskControl riskControl);
+
+    @Insert({
+            "insert into risk_post (id, mainName, processName,",
+            "processPoint, riskId, riskDescribe,",
+            "controlObjectives, controlId,",
+            "controlName, controlMeasures,",
+            "responsiblePosition, correspondingSystem,",
+            "evidence, createTime,",
+            "updateTime)",
+            "values (#{id,jdbcType=INTEGER}, #{mainName,jdbcType=VARCHAR}, #{processName,jdbcType=VARCHAR},",
+            "#{processPoint,jdbcType=VARCHAR}, #{riskId,jdbcType=VARCHAR}, #{riskDescribe,jdbcType=VARCHAR},",
+            "#{controlObjectives,jdbcType=VARCHAR}, #{controlId,jdbcType=VARCHAR},",
+            "#{controlName,jdbcType=VARCHAR}, #{controlMeasures,jdbcType=VARCHAR},",
+            "#{responsiblePosition,jdbcType=VARCHAR}, #{correspondingSystem,jdbcType=VARCHAR},",
+            "#{evidence,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
+            "#{updateTime,jdbcType=TIMESTAMP})"
+    })
+    int insertRiskPost(RiskControl riskControl);
+
+    @Select({
+            "select * from risk_post"
+    })
+    List<RiskControl> selectRiskPost();
+
+    @Delete({
+            "delete from risk_post",
+            "where postId = #{postId,jdbcType=INTEGER}"
+    })
+    int deleteInRiskPostById(int postId);
 }
