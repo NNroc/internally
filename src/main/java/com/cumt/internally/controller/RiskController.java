@@ -157,11 +157,11 @@ public class RiskController {
         return responseData.write("清空成功", 200, new HashMap<>());
     }
 
-
     /**
-     * /// TODO 修改project而不是risk_control
      * 个人修改 + token(根据token权限修改or存储)
      *
+     * @param riskControl
+     * @param httpServletRequest
      * @return
      */
     @UserToken
@@ -199,11 +199,10 @@ public class RiskController {
         }
     }
 
-    // 更新：先更新risk_control再从risk_post中删除
-    // 删除：从risk_post中删除
-
     /**
      * todo 管理员审核员工的并同意更新，删除。
+     * 更新：先更新risk_control再从risk_post中删除
+     * 删除：从risk_post中删除
      *
      * @param riskControl
      * @param choose      1 更新 0 删除
