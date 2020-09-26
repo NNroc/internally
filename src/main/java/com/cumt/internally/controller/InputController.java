@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /// TODO input new project
+
 /**
  * @author NNroc
  * @date 2020/5/13 16:18
@@ -71,22 +72,28 @@ public class InputController {
         Sheet sheet = wb.getSheetAt(0);
         //获取第一行
         int firstRowIndex = sheet.getFirstRowNum();
+        log.info("第一行：" + firstRowIndex);
         //获取最后一行
         int lastRowIndex = sheet.getLastRowNum();
+        log.info("最后一行：" + lastRowIndex);
         // 用于记录之前的实体信息
         RiskControl use = new RiskControl();
         //第一行普遍是标题
         for (int rowIndex = firstRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
             Row row = sheet.getRow(rowIndex);
             // 判断下一行有没有东西
-            boolean haveMessage = true;
+            boolean haveMessage = false;
             for (int i = 0; i <= 10; i++) {
-                if (!StringUtils.isBlank(row.getCell(i).toString())) {
+                try {
+                    if (!StringUtils.isBlank(row.getCell(i).toString())) {
+                        haveMessage = true;
+                        break;
+                    }
+                } catch (Exception e) {
                     haveMessage = false;
-                    break;
                 }
             }
-            if (haveMessage) {
+            if (!haveMessage) {
                 break;
             }
 
