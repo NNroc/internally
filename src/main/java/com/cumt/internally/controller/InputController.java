@@ -49,7 +49,7 @@ public class InputController {
      * @return
      */
 //    @PassToken
-//    @RequestMapping("/import/risk")
+    @RequestMapping("/import/risk")
     public Result importRisk(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
@@ -176,6 +176,7 @@ public class InputController {
             }
             riskControl.setEvidence(use.getEvidence());
 
+            riskControl.setManage(fileName.split("\\.")[0]);
             riskControl.setCreateTime(new Date());
             riskControl.setUpdateTime(new Date());
 

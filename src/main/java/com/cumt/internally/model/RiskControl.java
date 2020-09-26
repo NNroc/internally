@@ -13,6 +13,8 @@ public class RiskControl implements Common, Comparable<RiskControl> {
     private Integer postId; // 在 risk_post 中的主键
     @NotNull(message = "id不能为空")
     private Integer id;
+    @NotNull(message = "管理分册不能为空")
+    private String manage;
     @NotNull(message = "流程总名称不能为空")
     private String mainName; // 流程总名称
     @NotNull(message = "业务流程不能为空")
@@ -61,6 +63,14 @@ public class RiskControl implements Common, Comparable<RiskControl> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getManage() {
+        return manage;
+    }
+
+    public void setManage(String manage) {
+        this.manage = manage;
     }
 
     public String getProcessName() {

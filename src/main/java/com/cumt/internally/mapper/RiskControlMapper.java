@@ -19,15 +19,15 @@ public interface RiskControlMapper {
             "controlObjectives, controlId,",
             "controlName, controlMeasures,",
             "responsiblePosition, correspondingSystem,",
-            "evidence, createTime,",
+            "evidence, manage, createTime,",
             "updateTime)",
             "values (#{mainName,jdbcType=VARCHAR}, #{processName,jdbcType=VARCHAR},",
             "#{processPoint,jdbcType=VARCHAR}, #{riskId,jdbcType=VARCHAR}, #{riskDescribe,jdbcType=VARCHAR},",
             "#{controlObjectives,jdbcType=VARCHAR}, #{controlId,jdbcType=VARCHAR},",
             "#{controlName,jdbcType=VARCHAR}, #{controlMeasures,jdbcType=VARCHAR},",
             "#{responsiblePosition,jdbcType=VARCHAR}, #{correspondingSystem,jdbcType=VARCHAR},",
-            "#{evidence,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
-            "#{updateTime,jdbcType=TIMESTAMP})"
+            "#{evidence,jdbcType=VARCHAR}, #{manage,jdbcType=VARCHAR},",
+            "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(RiskControl riskControl);
 

@@ -39,6 +39,7 @@ public class RiskController {
     StaffService staffService;
 
     /**
+     * TODO 加入 manage 变量筛选
      * 获取风险矩阵
      *
      * @return
@@ -183,7 +184,6 @@ public class RiskController {
 
 
     /**
-     * /// todo
      * 查找职工提交的数据
      *
      * @return
@@ -210,7 +210,11 @@ public class RiskController {
      */
     @AdministratorToken
     @RequestMapping("/approve_risk_post")
-    public Result approveRiskPost(@Valid RiskControl riskControl, @RequestParam int choose) {
+    public Result approveRiskPost(@Valid RiskControl riskControl, BindingResult errors, @RequestParam int choose) {
+        if (errors.hasErrors()) {
+            List<ObjectError> list = errors.getAllErrors();
+            return responseData.write(errors.getAllErrors().toString(), 404, list);
+        }
         RiskControl use = riskControlService.selectById(riskControl.getId());
         if (use == null) {
             return responseData.write("未找到原信息", 404, new HashMap<>());
