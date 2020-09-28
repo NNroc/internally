@@ -47,7 +47,6 @@ public class AnalysisController {
     RiskLevelService riskLevelService;
 
     /**
-     * /// todo 需加入年份筛选
      * 风险统计结果（列举所有风险，得分高到低），excel
      *
      * @param response
@@ -167,7 +166,6 @@ public class AnalysisController {
     }
 
     /**
-     * /// todo 需加入年份筛选
      * 风险统计结果分析，排序，excel
      * 风险等级	风险个数 所占比例
      *

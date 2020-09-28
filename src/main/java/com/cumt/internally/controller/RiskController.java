@@ -39,7 +39,6 @@ public class RiskController {
     StaffService staffService;
 
     /**
-     * TODO 加入 manage 变量筛选
      * 获取风险矩阵
      *
      * @return
@@ -200,7 +199,7 @@ public class RiskController {
     }
 
     /**
-     * todo 管理员审核员工的并同意更新，删除。
+     * 管理员审核员工的并同意更新，删除。
      * 更新：先更新risk_control再从risk_post中删除
      * 删除：从risk_post中删除
      *
