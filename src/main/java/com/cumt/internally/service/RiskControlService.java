@@ -2,6 +2,7 @@ package com.cumt.internally.service;
 
 import com.cumt.internally.mapper.RiskControlMapper;
 import com.cumt.internally.model.RiskControl;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class RiskControlService {
     }
 
     public void insertRiskPost(RiskControl riskControl) {
+        riskControl.setCreateTime(new Date());
+        riskControl.setUpdateTime(new Date());
         riskControlMapper.insertRiskPost(riskControl);
     }
 
@@ -37,6 +40,7 @@ public class RiskControlService {
     }
 
     public int update(RiskControl riskControl) {
+        riskControl.setUpdateTime(new Date());
         return riskControlMapper.updateByPrimaryKey(riskControl);
     }
 

@@ -2,6 +2,7 @@ package com.cumt.internally.service;
 
 import com.cumt.internally.mapper.ProjectMapper;
 import com.cumt.internally.model.Project;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,7 @@ public class ProjectService {
     }
 
     public void updateByTypeAndManage(Project record, String manage, String type, int num) {
+        record.setUpdateTime(new Date());
         projectMapper.updateByTypeAndManage(record, manage, type, num);
     }
 }

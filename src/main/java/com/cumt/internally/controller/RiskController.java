@@ -194,7 +194,7 @@ public class RiskController {
         if (riskPost != null) {
             return responseData.write("查找成功", 200, riskPost);
         } else {
-            return responseData.write("没有数据", 200, new HashMap<>());
+            return responseData.write("没有数据", 201, new HashMap<>());
         }
     }
 

@@ -33,7 +33,7 @@ public interface ProjectMapper {
 
     @Select({
             "select * from project where type = #{type,jdbcType=VARCHAR}",
-            "and num = #{num,jdbcType=INTEGER}, manage = #{manage,jdbcType=VARCHAR}"
+            "and num = #{num,jdbcType=INTEGER} and manage = #{manage,jdbcType=VARCHAR}"
     })
     Project selectByTypeAndManage(String manage, String type, int num);
 
@@ -44,7 +44,6 @@ public interface ProjectMapper {
             "controlId = #{controlId,jdbcType=VARCHAR},",
             "stepDescribe = #{stepDescribe,jdbcType=VARCHAR},",
             "document = #{document,jdbcType=VARCHAR},",
-            "createTime = #{createTime,jdbcType=TIMESTAMP},",
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where type = #{type,jdbcType=VARCHAR}",
             "and num = #{num,jdbcType=INTEGER}",
