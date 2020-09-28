@@ -18,12 +18,12 @@ public interface ProjectMapper {
     int deleteByType(String type);
 
     @Insert({
-            "insert into project (type,",
+            "insert into project (type, manage,",
             "num, stepName, department,",
             "controlId, stepDescribe,",
             "document, createTime,",
             "updateTime)",
-            "values (#{type,jdbcType=VARCHAR},",
+            "values (#{type,jdbcType=VARCHAR}, #{manage,jdbcType=VARCHAR},",
             "#{num,jdbcType=INTEGER}, #{stepName,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},",
             "#{controlId,jdbcType=VARCHAR}, #{stepDescribe,jdbcType=VARCHAR},",
             "#{document,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},",
@@ -32,9 +32,10 @@ public interface ProjectMapper {
     int insert(Project project);
 
     @Select({
-            "select * from project where type = #{type,jdbcType=VARCHAR} and num = #{num,jdbcType=INTEGER}"
+            "select * from project where type = #{type,jdbcType=VARCHAR}",
+            "and num = #{num,jdbcType=INTEGER}, manage = #{manage,jdbcType=VARCHAR}"
     })
-    Project selectByType(String type, int num);
+    Project selectByTypeAndManage(String manage, String type, int num);
 
     @Update({
             "update project",
@@ -46,7 +47,8 @@ public interface ProjectMapper {
             "createTime = #{createTime,jdbcType=TIMESTAMP},",
             "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
             "where type = #{type,jdbcType=VARCHAR}",
-            "and num = #{num,jdbcType=INTEGER}"
+            "and num = #{num,jdbcType=INTEGER}",
+            "and manage = #{manage,jdbcType=VARCHAR}"
     })
-    int updateByType(Project record, String type, int num);
+    int updateByTypeAndManage(Project record, String manage, String type, int num);
 }

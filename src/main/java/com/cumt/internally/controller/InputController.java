@@ -44,13 +44,13 @@ public class InputController {
 
     /**
      * 导入风险矩阵
-     * 无需求，暂不启用
+     * 无需求，不启用
      *
      * @param file
      * @return
      */
 //    @PassToken
-    @RequestMapping("/import/risk")
+//    @RequestMapping("/import/risk")
     public Result importRisk(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
@@ -209,7 +209,7 @@ public class InputController {
         log.info(fileName);
         Workbook wb = null;
         int lastIndexOf = fileName.lastIndexOf(".");
-        //获取文件的后缀名
+        // 获取文件的后缀名
         String suffix = fileName.substring(lastIndexOf);
         if (suffix.equals(".xls")) {
             //.xls 使用
@@ -220,11 +220,11 @@ public class InputController {
         } else {
             return responseData.write("文件格式错误", 400, new HashMap<>());
         }
-        //对应 Excel 中的表格 id
+        // 对应 Excel 中的表格 id
         Sheet sheet = wb.getSheetAt(0);
-        //获取第一行
+        // 获取第一行
         int firstRowIndex = sheet.getFirstRowNum();
-        //获取最后一行
+        // 获取最后一行
         int lastRowIndex = sheet.getLastRowNum();
         // 删除同名类别的（覆盖）
         projectService.deleteByType(fileName);
@@ -255,6 +255,7 @@ public class InputController {
 //                project.setType(fileName);
                 cell = row.getCell(2);
                 project.setDepartment(cell.toString());
+                project.setManage(fileName.split("\\.")[0]);
                 // 只合并了 主责部门/岗位
                 while ((rowIndex + 1) <= lastRowIndex &&
                         StringUtils.isBlank(sheet.getRow(rowIndex + 1).getCell(0).toString()) &&

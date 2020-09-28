@@ -11,25 +11,19 @@ import javax.validation.constraints.NotBlank;
  */
 public class Project implements Common {
     private Integer id;
+    @NotBlank(message = "管理分册不能为空")
+    private String manage; // 管理分册
     @NotBlank(message = "表名不能为空")
-    private String type; //表名
+    private String type; // 表名
     @NotBlank(message = "编号不能为空")
-    private Integer num; //编号
-    private String stepName; //步骤名称
-    private String department; //主管部门/岗位
-    private String controlId; //控制编号
-    private String stepDescribe; //步骤描述
-    private String document; //输出文档
-    private Date createTime; //创建时间
-    private Date updateTime; //更新时间
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    private Integer num; // 编号
+    private String stepName; // 步骤名称
+    private String department; // 主管部门/岗位
+    private String controlId; // 控制编号
+    private String stepDescribe; // 步骤描述
+    private String document; // 输出文档
+    private Date createTime; // 创建时间
+    private Date updateTime; // 更新时间
 
     public Integer getId() {
         return id;
@@ -37,6 +31,22 @@ public class Project implements Common {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getManage() {
+        return manage;
+    }
+
+    public void setManage(String manage) {
+        this.manage = manage;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getNum() {

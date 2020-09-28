@@ -34,8 +34,8 @@ public class ProjectController {
      */
     @UserToken
     @RequestMapping("/get_project")
-    public Result getProject(@RequestParam String type, @RequestParam int num) {
-        Project project = projectService.selectByType(type, num);
+    public Result getProject(@RequestParam String manage, @RequestParam String type, @RequestParam int num) {
+        Project project = projectService.selectByTypeAndManage(manage, type, num);
         if (project != null) {
             return responseData.write(type, 200, project.toDict());
         } else {
@@ -52,9 +52,9 @@ public class ProjectController {
     @AdministratorToken
     @RequestMapping("/change_project")
     public Result changeProject(@Valid Project project) {
-        Project pro = projectService.selectByType(project.getType(), project.getNum());
+        Project pro = projectService.selectByTypeAndManage(project.getManage(), project.getType(), project.getNum());
         if (pro != null) {
-            projectService.updateByType(project, project.getType(), project.getNum());
+            projectService.updateByTypeAndManage(project, project.getManage(), project.getType(), project.getNum());
             return responseData.write("修改成功", 200, new HashMap<>());
         } else {
             return responseData.write("不存在该项目", 400, new HashMap<>());

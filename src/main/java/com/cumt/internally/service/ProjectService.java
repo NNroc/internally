@@ -33,17 +33,18 @@ public class ProjectService {
     }
 
     /**
-     * 根据type查找表格
+     * 根据 manage 和 type 查找表格
      *
+     * @param manage
      * @param type
      * @param num
      * @return
      */
-    public Project selectByType(String type, int num) {
-        return projectMapper.selectByType(type, num);
+    public Project selectByTypeAndManage(String manage, String type, int num) {
+        return projectMapper.selectByTypeAndManage(manage, type, num);
     }
 
-    public void updateByType(Project record, String type, int num) {
-        projectMapper.updateByType(record, type, num);
+    public void updateByTypeAndManage(Project record, String manage, String type, int num) {
+        projectMapper.updateByTypeAndManage(record, manage, type, num);
     }
 }
