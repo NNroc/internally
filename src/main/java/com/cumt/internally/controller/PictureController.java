@@ -9,7 +9,6 @@ import com.cumt.internally.utils.FileUtil;
 import com.cumt.internally.utils.IPUtil;
 import java.io.File;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,11 +45,11 @@ public class PictureController {
      */
     @AdministratorToken
     @RequestMapping("/send_pic")
-    public Result sendPic(MultipartFile svg) throws Exception {
+    public Result sendPic(MultipartFile svg, @RequestParam String manage) throws Exception {
         // 判断用户是否上传了文件
         if (!svg.isEmpty()) {
             // 文件上传的地址;
-            String path = getJarRoot() + "/svg/";
+            String path = getJarRoot() + "/svg/" + manage;
             // 当前路径:G:\githubuse\internally\target
             if (!Files.exists(Paths.get(path))) {
                 Files.createDirectories(Paths.get(path));
@@ -76,16 +76,22 @@ public class PictureController {
      */
     @UserToken
     @RequestMapping("/get_all_pic")
-    public Result getPic() throws UnknownHostException {
+    public Result getPic(@RequestParam String manage) throws IOException {
         // 指定路径
-        String path = getJarRoot() + "/svg/";
+        String path = getJarRoot() + "/svg/" + manage + "/";
+        if (!Files.exists(Paths.get(path))) {
+            return responseData.write("manage有误或无svg", 400, new HashMap<>());
+        }
         List<String> files = getFileName(path, ".svg", false);
         List<SvgMessage> panes = new ArrayList<>();
+        if (files.size() == 0) {
+            return responseData.write("无图片", 201, new HashMap<>());
+        }
         for (String file : files) {
             SvgMessage svgMessage = new SvgMessage();
             svgMessage.setTitle(file);
             String ip = IPUtil.getIpAddress();
-            svgMessage.setSVGSrc("http://" + ip + ":8046/internally/piloting/picture/get_pic/" + file);
+            svgMessage.setSVGSrc("http://" + ip + ":8046/internally/piloting/picture/get_pic/" + manage + "/" + file);
             panes.add(svgMessage);
         }
         Collections.sort(panes);
