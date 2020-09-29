@@ -3,6 +3,7 @@ package com.cumt.internally.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
  * @date 2020/5/12 13:13
  */
 public class RiskControl implements Common, Comparable<RiskControl> {
+    @NotBlank(message = "postId不能为空")
     private Integer postId; // 在 risk_post 中的主键
     @NotNull(message = "id不能为空")
     private Integer id;
