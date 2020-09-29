@@ -49,7 +49,7 @@ public class PictureController {
         // 判断用户是否上传了文件
         if (!svg.isEmpty()) {
             // 文件上传的地址;
-            String path = getJarRoot() + "/svg/" + manage;
+            String path = getJarRoot() + "/svg/" + manage + "/";
             // 当前路径:G:\githubuse\internally\target
             if (!Files.exists(Paths.get(path))) {
                 Files.createDirectories(Paths.get(path));
@@ -84,7 +84,7 @@ public class PictureController {
         }
         List<String> files = getFileName(path, ".svg", false);
         List<SvgMessage> panes = new ArrayList<>();
-        if (files.size() == 0) {
+        if (files.isEmpty()) {
             return responseData.write("无图片", 201, new HashMap<>());
         }
         for (String file : files) {
@@ -108,12 +108,14 @@ public class PictureController {
      * @throws IOException
      */
 //    @UserToken
-    @RequestMapping("/get_pic/{svg}")
-    public void getImage(HttpServletResponse response, @PathVariable("svg") String svg) throws IOException {
+    @RequestMapping("/get_pic/{manage}/{svg}")
+    public void getImage(HttpServletResponse response,
+                         @PathVariable("manage") String manage,
+                         @PathVariable("svg") String svg) throws IOException {
         response.setContentType("image/svg+xml;charset=utf-8");
         response.setHeader("Content-Disposition", "inline; filename=" + svg);
         ServletOutputStream outputStream = response.getOutputStream();
-        String path = getJarRoot() + "/svg/";
+        String path = getJarRoot() + "/svg/" + manage + "/";
         outputStream.write(Files.readAllBytes(Paths.get(path).resolve(svg)));
         outputStream.flush();
         outputStream.close();
