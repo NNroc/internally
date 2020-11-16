@@ -39,12 +39,12 @@ public interface ProjectMapper {
 
     @Update({
             "update project",
-            "set stepName = #{stepName,jdbcType=VARCHAR},",
-            "department = #{department,jdbcType=VARCHAR},",
-            "controlId = #{controlId,jdbcType=VARCHAR},",
-            "stepDescribe = #{stepDescribe,jdbcType=VARCHAR},",
-            "document = #{document,jdbcType=VARCHAR},",
-            "updateTime = #{updateTime,jdbcType=TIMESTAMP}",
+            "set stepName = #{record.stepName,jdbcType=VARCHAR},",
+            "department = #{record.department,jdbcType=VARCHAR},",
+            "controlId = #{record.controlId,jdbcType=VARCHAR},",
+            "stepDescribe = #{record.stepDescribe,jdbcType=VARCHAR},",
+            "document = #{record.document,jdbcType=VARCHAR},",
+            "updateTime = #{record.updateTime,jdbcType=TIMESTAMP}",
             "where type = #{type,jdbcType=VARCHAR}",
             "and num = #{num,jdbcType=INTEGER}",
             "and manage = #{manage,jdbcType=VARCHAR}"

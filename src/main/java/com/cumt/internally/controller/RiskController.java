@@ -181,7 +181,6 @@ public class RiskController {
         return responseData.write("员工权值存在问题！", 444, new HashMap<>());
     }
 
-
     /**
      * 查找职工提交的数据
      *
@@ -213,6 +212,9 @@ public class RiskController {
         if (errors.hasErrors()) {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
+        }
+        if (riskControl.getPostId() == null) {
+            return responseData.write("postId不能为空", 400, new HashMap<>());
         }
         RiskControl use = riskControlService.selectById(riskControl.getId());
         if (use == null) {
