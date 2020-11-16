@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author NNroc
@@ -15,7 +16,7 @@ public class Project implements Common {
     private String manage; // 管理分册
     @NotBlank(message = "表名不能为空")
     private String type; // 表名
-    @NotBlank(message = "编号不能为空")
+    @NotNull(message = "编号不能为空")
     private Integer num; // 编号
     private String stepName; // 步骤名称
     private String department; // 主管部门/岗位
