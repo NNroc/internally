@@ -65,12 +65,14 @@ public class AnalysisController {
         for (RiskMark riskMark : riskMarks) {
             for (RiskControl riskControl : riskControlList) {
                 if (riskControl.getId() == riskMark.getRiskControlId()) {
+                    // use 表示对应的权重
                     double use = getWeight(riskMark.getStaffPosition());
                     if (use == -1) {
                         return responseData.write("不存在该职位", 400, new HashMap<>());
                     }
                     riskControl.setPossibleGrade(riskControl.getPossibleGrade() + riskMark.getPossibleGrade() * use);
                     riskControl.setEffectGrade(riskControl.getEffectGrade() + riskMark.getEffectGrade() * use);
+                    // num 指人数
                     riskControl.setNum(riskControl.getNum() + 1);
                     break;
                 }

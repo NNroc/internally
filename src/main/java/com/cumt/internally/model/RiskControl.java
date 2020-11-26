@@ -256,14 +256,14 @@ public class RiskControl implements Common, Comparable<RiskControl> {
     @Override
     public int compareTo(RiskControl riskControl) {
         if (this.sumGrade > riskControl.sumGrade) {
-            return 1;
-        } else if (this.sumGrade < riskControl.sumGrade) {
             return -1;
+        } else if (this.sumGrade < riskControl.sumGrade) {
+            return 1;
         } else {
-            if (this.id <= riskControl.id) {
-                return 1;
-            } else {
+            if (this.id < riskControl.id) {
                 return -1;
+            } else {
+                return 1;
             }
         }
     }
