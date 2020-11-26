@@ -278,9 +278,27 @@ public class AnalysisController {
         sheet.addMergedRegion(region2);
         row = sheet.createRow(6);
         cell = row.createCell(0);
+
+        // 对应 high medium low 的值
+        double h = 0, m = 0, l = 0;
+        // 算三种风险的比例
+        if (high == 0) {
+            if (medium == 0) {
+                l = 1;
+            } else if (low == 0) {
+                m = 1;
+            } else {
+                l = 1.0 * low / medium;
+                m = 1;
+            }
+        } else {
+            m = 1.0 * medium / high;
+            l = 1.0 * low / high;
+            h = 1;
+        }
         cell.setCellValue("高风险：中风险：低风险=" +
-                1 + "：" + String.format("%.2f", 1.0 * medium / high) +
-                "：" + String.format("%.2f", 1.0 * low / high));
+                String.format("%.2f", h) + "：" + String.format("%.2f", m) +
+                "：" + String.format("%.2f", l));
 
         response.setContentType("application/vnd.ms-excel");
         // 这后面可以设置导出Excel的名称
