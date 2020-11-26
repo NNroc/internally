@@ -42,6 +42,7 @@ public class RiskControl implements Common, Comparable<RiskControl> {
     private Date createTime; // 创建时间
     private Date updateTime; // 更新时间
 
+    // display 表示需要导出到 xls 的数值
     private int riskSort; // 风险排序，display0
     private double possibleGrade = 0.0; // 可能性，display5
     private double effectGrade = 0.0; // 影响性，display6
