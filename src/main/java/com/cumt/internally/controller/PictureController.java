@@ -91,6 +91,8 @@ public class PictureController {
             SvgMessage svgMessage = new SvgMessage();
             svgMessage.setTitle(file);
             String ip = IPUtil.getIpAddress();
+            System.out.println(ip);
+            ip="202.119.207.234";
             svgMessage.setSVGSrc("http://" + ip + ":8046/internally/piloting/picture/get_pic/" + manage + "/" + file);
             panes.add(svgMessage);
         }

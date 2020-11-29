@@ -11,6 +11,7 @@ import com.cumt.internally.service.RiskControlService;
 import com.cumt.internally.service.RiskMarkService;
 import com.cumt.internally.service.StaffService;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -169,6 +170,9 @@ public class RiskController {
     public Result sendModify(@Valid RiskControl riskControl, HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
+        if(riskControl.getId()==null){
+            return responseData.write("id不能为空", 400, new HashMap<>());
+        }
         if (staff.getStaffWeight() == 1.0) {
             // 数据库写入
             riskControlService.insertRiskPost(riskControl);
@@ -213,6 +217,9 @@ public class RiskController {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
+        if(riskControl.getId()==null){
+            return responseData.write("id不能为空", 400, new HashMap<>());
+        }
         if (riskControl.getPostId() == null) {
             return responseData.write("postId不能为空", 400, new HashMap<>());
         }
@@ -234,6 +241,26 @@ public class RiskController {
                 return responseData.write("删除失败", 401, new HashMap<>());
             }
         }
+    }
+
+    /**
+     * 管理员添加新的风险点
+     * @param riskControl
+     * @param errors
+     * @return
+     */
+    @AdministratorToken
+    @RequestMapping("/add_risk_control")
+    public Result addRiskControl(@Valid RiskControl riskControl, BindingResult errors) {
+        if (errors.hasErrors()) {
+            List<ObjectError> list = errors.getAllErrors();
+            return responseData.write(errors.getAllErrors().toString(), 404, list);
+        }
+        riskControl.setCreateTime(new Date());
+        riskControl.setUpdateTime(new Date());
+        // 写入数据库
+        riskControlService.insert(riskControl);
+        return responseData.write("添加成功", 200, new HashMap<>());
     }
 
 }

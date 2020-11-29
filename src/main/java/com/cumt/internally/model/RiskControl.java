@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 public class RiskControl implements Common, Comparable<RiskControl> {
     private Integer postId; // 在 risk_post 中的主键
-    @NotNull(message = "id不能为空")
+//    @NotNull(message = "id不能为空") 在添加新风险点的时候id只能为空
     private Integer id;
     @NotNull(message = "管理分册不能为空")
     private String manage;
