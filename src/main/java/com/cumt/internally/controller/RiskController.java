@@ -264,4 +264,17 @@ public class RiskController {
         return responseData.write("添加成功", 200, new HashMap<>());
     }
 
+    @AdministratorToken
+    @RequestMapping("/del_risk_control")
+    public Result delRiskControl(@RequestParam Integer id) {
+        if (id == null) {
+            return responseData.write("id不能为空", 400, new HashMap<>());
+        }
+        if (riskControlService.deleteById(id) == 1) {
+            return responseData.write("删除成功", 200, new HashMap<>());
+        } else {
+            return responseData.write("删除失败", 400, new HashMap<>());
+        }
+    }
+
 }

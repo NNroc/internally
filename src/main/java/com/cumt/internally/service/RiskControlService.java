@@ -44,7 +44,11 @@ public class RiskControlService {
         return riskControlMapper.updateByPrimaryKey(riskControl);
     }
 
-    public int deleteInRiskPostById(int postId){
+    public int deleteInRiskPostById(int postId) {
         return riskControlMapper.deleteInRiskPostById(postId);
+    }
+
+    public int deleteById(int id) {
+        return riskControlMapper.deleteById(id);
     }
 }

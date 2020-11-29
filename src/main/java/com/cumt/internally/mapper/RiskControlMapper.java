@@ -90,4 +90,10 @@ public interface RiskControlMapper {
             "where postId = #{postId,jdbcType=INTEGER}"
     })
     int deleteInRiskPostById(int postId);
+
+    @Delete({
+            "delete from risk_control",
+            "where id = #{id,jdbcType=INTEGER}"
+    })
+    int deleteById(int id);
 }
