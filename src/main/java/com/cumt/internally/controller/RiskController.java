@@ -170,7 +170,7 @@ public class RiskController {
     public Result sendModify(@Valid RiskControl riskControl, HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("token");
         Staff staff = staffService.getStaffFromToken(token);
-        if(riskControl.getId()==null){
+        if (riskControl.getId() == null) {
             return responseData.write("id不能为空", 400, new HashMap<>());
         }
         if (staff.getStaffWeight() == 1.0) {
@@ -217,7 +217,7 @@ public class RiskController {
             List<ObjectError> list = errors.getAllErrors();
             return responseData.write(errors.getAllErrors().toString(), 404, list);
         }
-        if(riskControl.getId()==null){
+        if (riskControl.getId() == null) {
             return responseData.write("id不能为空", 400, new HashMap<>());
         }
         if (riskControl.getPostId() == null) {
@@ -245,6 +245,7 @@ public class RiskController {
 
     /**
      * 管理员添加新的风险点
+     *
      * @param riskControl
      * @param errors
      * @return
