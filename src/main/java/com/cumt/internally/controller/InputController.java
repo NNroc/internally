@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-/// TODO input new project
-
 /**
  * @author NNroc
  * @date 2020/5/13 16:18
