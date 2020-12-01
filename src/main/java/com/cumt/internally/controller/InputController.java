@@ -47,8 +47,8 @@ public class InputController {
      * @param file
      * @return
      */
-//    @PassToken
-//    @RequestMapping("/import/risk")
+    @PassToken
+    @RequestMapping("/import/risk")
     public Result importRisk(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
@@ -95,12 +95,12 @@ public class InputController {
                 break;
             }
 
-            if (row.getCell(0).toString().equals("业务流程")) {
+            if (row.getCell(0) != null && row.getCell(0).toString().equals("业务流程")) {
                 continue;
             }
             RiskControl riskControl = new RiskControl();
             // 判断主流程名称，并更新
-            if (!StringUtils.isBlank(row.getCell(0).toString())) {
+            if (row.getCell(0) != null && !StringUtils.isBlank(row.getCell(0).toString())) {
                 boolean flag = true;
                 for (int i = 1; i <= 10; i++) {
                     if (!StringUtils.isBlank(row.getCell(i).toString())) {
@@ -116,67 +116,67 @@ public class InputController {
             riskControl.setMainName(use.getMainName());
 
             Cell cell = row.getCell(0);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setProcessName(cell.toString());
             }
             riskControl.setProcessName(use.getProcessName());
 
             cell = row.getCell(1);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setProcessPoint(cell.toString());
             }
             riskControl.setProcessPoint(use.getProcessPoint());
 
             cell = row.getCell(2);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setRiskId(cell.toString());
             }
             riskControl.setRiskId(use.getRiskId());
 
             cell = row.getCell(3);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setRiskDescribe(cell.toString());
             }
             riskControl.setRiskDescribe(use.getRiskDescribe());
 
             cell = row.getCell(4);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setControlObjectives(cell.toString());
             }
             riskControl.setControlObjectives(use.getControlObjectives());
 
             cell = row.getCell(5);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setControlId(cell.toString());
             }
             riskControl.setControlId(use.getControlId());
 
             cell = row.getCell(6);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setControlName(cell.toString());
             }
             riskControl.setControlName(use.getControlName());
 
             cell = row.getCell(7);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setControlMeasures(cell.toString());
             }
             riskControl.setControlMeasures(use.getControlMeasures());
 
             cell = row.getCell(8);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setResponsiblePosition(cell.toString());
             }
             riskControl.setResponsiblePosition(use.getResponsiblePosition());
 
             cell = row.getCell(9);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setCorrespondingSystem(cell.toString());
             }
             riskControl.setCorrespondingSystem(use.getCorrespondingSystem());
 
             cell = row.getCell(10);
-            if (!StringUtils.isBlank(cell.toString())) {
+            if (cell != null && !StringUtils.isBlank(cell.toString())) {
                 use.setEvidence(cell.toString());
             }
             riskControl.setEvidence(use.getEvidence());

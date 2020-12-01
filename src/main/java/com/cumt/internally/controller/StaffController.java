@@ -53,6 +53,7 @@ public class StaffController {
                 String token = JwtUtil.getToken(staff, "salt", 60 * 24 * 30);
                 map.put("token", token);
                 map.put("weight", staffChoose.getStaffWeight());
+                map.put("staff",staff.toDict());
                 // 返回token
                 return responseData.write("登录成功", 200, map);
             } else {

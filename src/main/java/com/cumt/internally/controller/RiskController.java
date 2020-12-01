@@ -247,15 +247,13 @@ public class RiskController {
      * 管理员添加新的风险点
      *
      * @param riskControl
-     * @param errors
      * @return
      */
     @AdministratorToken
     @RequestMapping("/add_risk_control")
-    public Result addRiskControl(@Valid RiskControl riskControl, BindingResult errors) {
-        if (errors.hasErrors()) {
-            List<ObjectError> list = errors.getAllErrors();
-            return responseData.write(errors.getAllErrors().toString(), 404, list);
+    public Result addRiskControl(RiskControl riskControl) {
+        if (riskControl.getRiskId() == null || riskControl.getManage() == null) {
+            return responseData.write("风险编号和管理分册名称不能为空", 400, new HashMap<>());
         }
         riskControl.setCreateTime(new Date());
         riskControl.setUpdateTime(new Date());

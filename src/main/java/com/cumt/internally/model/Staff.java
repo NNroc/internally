@@ -116,9 +116,6 @@ public class Staff implements Common {
         map.put("staffPosition",staffPosition);
         map.put("staffDuty", staffDuty);
         map.put("staffProfessional", staffProfessional);
-        map.put("staffWeight", staffWeight);
-        map.put("createTime", createTime);
-        map.put("updateTime", updateTime);
         return map;
     }
 }
