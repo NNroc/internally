@@ -1,6 +1,5 @@
 package com.cumt.internally.controller;
 
-import com.cumt.internally.annotation.PassToken;
 import com.cumt.internally.component.ResponseData;
 import com.cumt.internally.model.Project;
 import com.cumt.internally.model.Result;
@@ -19,7 +18,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,8 +45,8 @@ public class InputController {
      * @param file
      * @return
      */
-    @PassToken
-    @RequestMapping("/import/risk")
+//    @PassToken
+//    @RequestMapping("/import/risk")
     public Result importRisk(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
@@ -199,8 +197,8 @@ public class InputController {
      * @return
      * @throws Exception
      */
-    @PassToken
-    @PostMapping("/import/flow_sheet")
+//    @PassToken
+//    @PostMapping("/import/flow_sheet")
     public Result readExcelFlowSheet(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
