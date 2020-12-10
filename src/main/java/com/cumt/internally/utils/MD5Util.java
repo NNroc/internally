@@ -3,17 +3,17 @@ package com.cumt.internally.utils;
 import java.security.MessageDigest;
 
 /**
+ * MD5 加密
+ *
  * @author NNroc
  * @date 2020/5/12 19:56
  */
 public class MD5Util {
 
     /**
-     *
      * 获取字符串加密后结果
      *
-     * @param text
-     *            需要加密的字符串
+     * @param text 需要加密的字符串
      * @return
      */
     public static String md5(String text) {
@@ -36,7 +36,7 @@ public class MD5Util {
             return "";
         }
 
-        if(null!=prifix && !"".endsWith(prifix)){
+        if (null != prifix && !"".endsWith(prifix)) {
             text = prifix + text;
         }
         byte[] originalByte = text.getBytes();
