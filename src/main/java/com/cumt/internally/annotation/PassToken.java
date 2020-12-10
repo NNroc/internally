@@ -7,6 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 跳过 token 验证
+ *
  * @author NNroc
  * @date 2020/5/12 14:51
  */

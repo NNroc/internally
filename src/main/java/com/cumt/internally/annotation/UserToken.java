@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 需普通用户或管理员权限
+ *
  * @author NNroc
  * @date 2020/5/12 14:53
  */
