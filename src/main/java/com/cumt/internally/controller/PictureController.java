@@ -39,8 +39,10 @@ public class PictureController {
 
     /**
      * 上传图片
-     *
+     * @param svg svg文件
+     * @param manage 要保存在manage文件夹下
      * @return
+     * @throws Exception
      */
     @AdministratorToken
     @RequestMapping("/send_pic")
